@@ -168,14 +168,19 @@
   .section-hint { color: var(--muted); font-size: .92rem; margin: 0 0 8px; }
 
   /* ===================== LIBRO SFOGLIABILE ===================== */
-  .book { position: relative; display: flex; align-items: stretch; gap: 8px; margin: 18px 0 8px; }
+  /* il libro esce dalla colonna stretta e usa tutta la larghezza dello schermo */
+  .book, .book-nav, .chapter-done-banner, .nav-chapters {
+    position: relative; left: 50%; transform: translateX(-50%);
+    width: min(1500px, 95vw);
+  }
+  .book { display: flex; align-items: stretch; gap: 14px; margin: 18px 0 10px; }
   .book-stage {
     position: relative; flex: 1 1 auto; min-width: 0;
-    height: clamp(440px, 66vh, 660px);
+    height: clamp(520px, 76vh, 860px);
     background: var(--card); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden;
   }
   .book-page {
-    position: absolute; inset: 0; padding: 22px 24px; overflow-y: auto;
+    position: absolute; inset: 0; padding: 28px 40px; overflow-y: auto;
     display: none; -webkit-overflow-scrolling: touch;
   }
   .book-page.active { display: block; }
@@ -183,6 +188,14 @@
   @keyframes pageTurn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
   .book-page .section-label { margin-top: 2px; }
   .book-page .block, .book-page .study-cols { margin-top: 0; }
+  /* su schermi ampi (iMac) la lezione scorre su due colonne: meno altezza, niente scroll */
+  @media (min-width: 900px) {
+    .page-lesson .lesson { columns: 2; column-gap: 36px; }
+    .page-lesson .lesson .para { -webkit-column-break-inside: avoid; break-inside: avoid; margin-top: 0; }
+    .page-lesson .lesson .para:first-child h4 { margin-top: 0; }
+    .book-page .section-label { font-size: 1.4rem; }
+    .book-page .lesson p, .book-page .term-item, .book-page .date-item { font-size: 1.02rem; }
+  }
 
   .book-arrow-side {
     flex: 0 0 auto; align-self: center;
@@ -326,17 +339,64 @@
   .rifl-status { margin-top: 6px; min-height: 1em; font-size: .82rem; color: var(--ok); }
 
   /* MAPPA CONCETTUALE (causa → scelta → conseguenze → eredità) */
-  .mappa { background: #fbf9f4; border: 1px solid var(--line); border-radius: 14px; padding: 18px 14px; }
-  .mc-domanda { text-align: center; font-weight: 800; color: #8a4b2f; font-size: 1.02rem; margin-bottom: 14px; }
-  .mc-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .mc-node { border-radius: 12px; padding: 11px 14px; font-size: .92rem; line-height: 1.42; border: 2px solid; box-sizing: border-box; }
+  .mappa { background: #fbf9f4; border: 1px solid var(--line); border-radius: 14px; padding: 20px 18px; }
+  .mc-domanda { text-align: center; font-weight: 800; color: #8a4b2f; font-size: 1.15rem; margin-bottom: 18px; }
+  .mc-node { border-radius: 12px; padding: 13px 16px; font-size: .98rem; line-height: 1.45; border: 2px solid; box-sizing: border-box; }
   .mc-tag { display: block; font-size: .66rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 800; opacity: .7; margin-bottom: 3px; }
-  .mc-causa { background: #eef2f6; border-color: #c4d2de; flex: 1 1 240px; max-width: 360px; }
-  .mc-scelta { background: #fbeecf; border-color: var(--gold); font-weight: 600; margin: 0 auto; max-width: 620px; text-align: center; }
-  .mc-cons { background: #e8f1ea; border-color: #bcd9c4; flex: 1 1 240px; max-width: 360px; }
-  .mc-eredita { background: #f1e8f3; border-color: #d3b9da; margin: 0 auto; max-width: 620px; text-align: center; }
-  .mc-link { text-align: center; color: #b0a48f; font-weight: 800; margin: 8px 0; font-size: 1.15rem; line-height: 1.2; }
-  .mc-link span { display: block; font-size: .78rem; font-weight: 600; color: var(--muted); }
+  .mc-causa { background: #eef2f6; border-color: #c4d2de; }
+  .mc-scelta { background: #fbeecf; border-color: var(--gold); font-weight: 600; }
+  .mc-cons { background: #e8f1ea; border-color: #bcd9c4; }
+  .mc-eredita { background: #f1e8f3; border-color: #d3b9da; }
+  /* flusso orizzontale: La situazione → La scelta → Le conseguenze → Fino a oggi */
+  .mc-flow { display: flex; align-items: stretch; gap: 10px; }
+  .mc-col { flex: 1 1 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .mc-coltag { text-align: center; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 800; color: var(--muted); }
+  .mc-col .mc-node { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+  .mc-arrow { align-self: center; color: #c79a3a; font-weight: 800; font-size: 1.7rem; line-height: 1; flex: 0 0 auto; }
+  @media (max-width: 760px) {
+    .mc-flow { flex-direction: column; }
+    .mc-arrow { transform: rotate(90deg); margin: 2px 0; }
+  }
+
+  /* ===== Termini del glossario (cliccabili) + pop-up ===== */
+  .gl {
+    border-bottom: 2px dotted var(--gold); cursor: help;
+    background: linear-gradient(transparent 60%, rgba(199,154,58,.16) 0);
+  }
+  .gl::after { content: 'ⓘ'; font-size: .62em; vertical-align: super; color: var(--gold); margin-left: 1px; font-weight: 700; }
+  .gl:hover { background: rgba(199,154,58,.22); }
+  #glPop {
+    position: fixed; z-index: 80; max-width: 340px; width: max-content;
+    background: #2b2420; color: #fff; border-radius: 12px; padding: 14px 16px 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35); opacity: 0; pointer-events: none;
+    transform: translateY(6px); transition: opacity .15s ease, transform .15s ease;
+  }
+  #glPop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  #glPop .gl-title { font-weight: 800; color: var(--gold); margin: 0 22px 6px 0; font-size: .98rem; }
+  #glPop .gl-body { font-size: .9rem; line-height: 1.5; }
+  #glPop .gl-close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; opacity: .7; }
+  #glPop .gl-close:hover { opacity: 1; }
+  @media print { .gl::after { display: none; } .gl { border: none; background: none; } .decifra-btn { display: none !important; } }
+  /* Bottone "Decifra il linguaggio degli storici" */
+  .decifra-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: linear-gradient(135deg, #c79a3a, #a9781f); color: #fff;
+    border: none; border-radius: 999px; padding: 8px 16px; font-size: .92rem; font-weight: 700;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(169,120,31,.35); transition: transform .12s ease, box-shadow .12s ease;
+    margin: 4px 0 12px;
+  }
+  .decifra-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(169,120,31,.45); }
+  .decifra-btn:active { transform: translateY(0); }
+  .decifra-btn .di { font-size: 1.05rem; line-height: 1; }
+  /* Lampeggio dei termini quando si chiede aiuto */
+  @keyframes decifraPulse {
+    0%, 100% { background: rgba(199,154,58,.16); box-shadow: 0 0 0 0 rgba(199,154,58,0); }
+    50% { background: rgba(199,154,58,.85); box-shadow: 0 0 0 4px rgba(199,154,58,.35); color: #2b2420; }
+  }
+  .gl.decifra-flash {
+    animation: decifraPulse .55s ease-in-out 0s 6; border-radius: 4px;
+    border-bottom-color: transparent; font-weight: 700;
+  }
 
   /* PAGINA PER I DOCENTI */
   .doc-link { background: none; border: none; color: #fff; text-decoration: underline; cursor: pointer; font: inherit; opacity: .9; }
@@ -386,6 +446,37 @@
   .quad-actions { margin: 14px 0; display: flex; gap: 10px; flex-wrap: wrap; }
   .quad-actions button { border: 2px solid var(--line); background: var(--card); border-radius: 10px; padding: 10px 18px; font: inherit; font-weight: 600; cursor: pointer; color: var(--accent); }
   .quad-actions button:hover { border-color: var(--accent-soft); }
+
+  /* Barra accessibilità (lettura ad alta voce + dimensione testo) */
+  #a11yBar {
+    position: fixed; left: 12px; bottom: 12px; z-index: 60;
+    display: flex; gap: 6px; align-items: center;
+    background: rgba(43,36,32,.93); padding: 6px 8px; border-radius: 30px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.32);
+  }
+  #a11yBar button {
+    background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.3);
+    border-radius: 22px; padding: 7px 12px; font: inherit; font-weight: 700; font-size: .85rem;
+    cursor: pointer; line-height: 1; white-space: nowrap;
+  }
+  #a11yBar button:hover { background: rgba(255,255,255,.28); }
+  #a11yBar button.on { background: var(--gold); border-color: var(--gold); color: #2b2420; }
+  #a11yBar .a11y-sep { width: 1px; height: 22px; background: rgba(255,255,255,.25); margin: 0 2px; }
+  #a11yBar .a11y-lab { color: #fff; opacity: .8; font-size: .8rem; font-weight: 700; padding-left: 2px; }
+  @media (max-width: 520px) {
+    #a11yBar { left: 8px; bottom: 8px; padding: 5px 6px; gap: 4px; }
+    #a11yBar button { padding: 7px 10px; font-size: .8rem; }
+    #a11yBar .a11y-lab { display: none; }
+  }
+
+  /* Toast di conferma */
+  #toast {
+    position: fixed; left: 50%; bottom: 70px; transform: translateX(-50%) translateY(20px);
+    background: #2b2420; color: #fff; padding: 11px 20px; border-radius: 24px;
+    font-size: .9rem; font-weight: 600; box-shadow: 0 6px 20px rgba(0,0,0,.3);
+    opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease; z-index: 70;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .quad-chapter { background: var(--card); border-radius: 14px; padding: 16px 20px; box-shadow: var(--shadow); margin: 12px 0; }
   .quad-chapter h3 { margin: 0 0 10px; font-size: 1.05rem; color: var(--accent); }
   .quad-comp { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
@@ -582,6 +673,9 @@
       <div class="quad-count" id="quadCount"></div>
       <div class="quad-actions">
         <button id="printQuad">📄 Genera il PDF del quaderno</button>
+        <button id="exportData">⬇️ Esporta i miei dati</button>
+        <button id="importData">⬆️ Importa dati</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
       </div>
     </div>
     <div id="quadList"></div>
@@ -656,6 +750,25 @@
   <div id="syncFooter" style="margin-top:8px"></div>
   <div class="copyright">© 2026 Andrea Cerioli – Animatore digitale · Scuola Secondaria di I grado Sacra Famiglia</div>
 </footer>
+
+<!-- Barra accessibilità: lettura ad alta voce + dimensione del testo -->
+<div id="a11yBar" role="toolbar" aria-label="Strumenti di lettura">
+  <button id="ttsBtn" type="button" aria-label="Leggi ad alta voce">🔊 Leggi</button>
+  <span class="a11y-sep"></span>
+  <span class="a11y-lab">Testo</span>
+  <button id="txtDown" type="button" aria-label="Riduci la dimensione del testo">A−</button>
+  <button id="txtUp" type="button" aria-label="Ingrandisci la dimensione del testo">A+</button>
+</div>
+
+<!-- Messaggio di conferma temporaneo -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- Pop-up del glossario (spiegazione dei termini storici) -->
+<div id="glPop" role="dialog" aria-label="Spiegazione del termine">
+  <button class="gl-close" type="button" aria-label="Chiudi">×</button>
+  <div class="gl-title"></div>
+  <div class="gl-body"></div>
+</div>
 
 <!-- Documento PDF del quaderno (popolato al momento della generazione) -->
 <div id="printArea"></div>
@@ -1871,10 +1984,21 @@ async function syncNow() {
     const id = await sha256hex(CONFIG.APP_SALT + '|' + identity.classe + '|' + identity.nickname);
     const enc = await encryptJSON(snapshot);
     const body = JSON.stringify({ id, classe: identity.classe, iv: enc.iv, ct: enc.ct, ts: snapshot.updatedAt });
-    await fetch(CONFIG.SYNC_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body });
+    // invio con un paio di tentativi in caso di errore di rete momentaneo
+    let sent = false, lastErr = null;
+    for (let attempt = 0; attempt < 3 && !sent; attempt++) {
+      if (attempt > 0) await new Promise(r => setTimeout(r, 800 * attempt));
+      try {
+        await fetch(CONFIG.SYNC_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body });
+        sent = true;
+      } catch (e) { lastErr = e; }
+    }
+    if (!sent) throw lastErr || new Error('network');
     setSyncState('Progressi salvati ✓ (' + new Date().toLocaleTimeString() + ')');
+    if (typeof showToast === 'function') showToast('Progressi salvati ✓');
   } catch (e) {
-    setSyncState('Salvato sul dispositivo (rete non disponibile)');
+    setSyncState('Salvato su questo dispositivo · invio non riuscito');
+    if (typeof showToast === 'function') showToast('Progressi salvati sul dispositivo (invio non riuscito)');
   }
 }
 function setSyncState(msg) { lastSyncState = msg; renderSyncFooter(); }
@@ -2149,6 +2273,207 @@ function loadGeoFrame(frame) {
   frame.innerHTML = '<iframe src="' + url + '" width="100%" height="100%" referrerpolicy="origin" loading="lazy" style="border:none" title="Mappa storica"></iframe>';
 }
 
+/* ===================== GLOSSARIO STORICO (termini cliccabili) =====================
+   Risolve il problema del «soggetto che cambia nome»: i termini elencati vengono
+   evidenziati automaticamente nel testo delle lezioni e, al tocco, mostrano una
+   spiegazione. 'cs: true' = match solo se scritto con la maiuscola (evita falsi
+   positivi su parole comuni come «comune» o «signore»). */
+const GLOSSARIO = [
+  { t: ["Franchi", "Carolingi", "dinastia carolingia", "carolingia", "carolingi"], titolo: "Franchi = Carolingi",
+    testo: "Stesso protagonista, nome diverso: i <b>Franchi</b> sono il popolo (e il loro regno); i <b>Carolingi</b> sono la dinastia, cioè la famiglia di re — quella di Carlo Magno — che li governa." },
+  { t: ["Longobardi", "regno longobardo", "longobardo", "longobarda"], titolo: "Longobardi",
+    testo: "Un popolo germanico che invase l'Italia e vi fondò un regno (il <b>regno longobardo</b>), poi conquistato dai Franchi nel 774." },
+  { t: ["bizantini", "bizantino", "bizantina", "Impero bizantino", "Bisanzio", "Impero romano d'Oriente"], titolo: "Bizantini = Impero d'Oriente",
+    testo: "Sono la stessa cosa: i <b>Bizantini</b> sono gli abitanti dell'<b>Impero romano d'Oriente</b>, la metà dell'antico Impero romano sopravvissuta con capitale Costantinopoli (Bisanzio)." },
+  { t: ["Sacro Romano Impero", "impero germanico"], titolo: "Sacro Romano Impero",
+    testo: "L'impero erede di Carlo Magno, nel cuore dell'Europa (soprattutto le terre tedesche). «Sacro» perché legato alla Chiesa, «Romano» perché si considerava continuatore di Roma." },
+  { t: ["papato", "pontefice", "il papa"], titolo: "Papa / Papato",
+    testo: "Il <b>papa</b> è il capo della Chiesa cattolica; il <b>papato</b> è la sua istituzione e il suo potere. «Pontefice» è un altro modo per dire papa." },
+  { t: ["feudalesimo", "sistema feudale"], titolo: "Feudalesimo",
+    testo: "Il sistema medievale in cui il re concede terre (i feudi) a nobili fedeli, che in cambio gli giurano aiuto militare. La società è una piramide di fedeltà." },
+  { t: ["feudo", "feudi"], titolo: "Feudo",
+    testo: "Un territorio (con i contadini che ci vivono) che un signore più potente concede a uno meno potente, in cambio di fedeltà e aiuto in guerra." },
+  { t: ["vassallo", "vassalli", "feudatario", "feudatari"], titolo: "Vassallo (feudatario)",
+    testo: "Il nobile che riceve un feudo da un signore più potente e in cambio gli giura fedeltà e aiuto militare. Si chiama anche <b>feudatario</b>." },
+  { t: ["investitura", "investiture"], titolo: "Investitura",
+    testo: "La cerimonia con cui si assegnava un incarico o un feudo. La «lotta per le investiture» fu lo scontro tra papa e imperatore su chi avesse il diritto di nominare i vescovi." },
+  { t: ["scomunica", "scomunicato", "scomunicare"], titolo: "Scomunica",
+    testo: "La punizione più dura della Chiesa: l'espulsione dalla comunità dei cristiani. Per un re medievale era gravissima, perché liberava i sudditi dall'obbedienza." },
+  { t: ["missi dominici"], titolo: "Missi dominici",
+    testo: "Gli «inviati del signore»: funzionari che Carlo Magno mandava in giro per l'impero a controllare che conti e vescovi rispettassero le sue leggi." },
+  { t: ["capitolari"], titolo: "Capitolari",
+    testo: "Le leggi e gli ordini scritti emanati da Carlo Magno, divisi in «capitoli» (da qui il nome)." },
+  { t: ["rinascita carolingia"], titolo: "Rinascita carolingia",
+    testo: "La ripresa della cultura voluta da Carlo Magno: scuole presso le abbazie, copia dei libri antichi, una scrittura più chiara e leggibile." },
+  { t: ["abbazia", "abbazie", "monastero", "monasteri", "amanuensi"], titolo: "Monastero / abbazia",
+    testo: "La casa dove vivono i monaci. Nel Medioevo i monasteri salvarono la cultura: i monaci <b>amanuensi</b> ricopiavano a mano i libri antichi." },
+  { t: ["Comune", "Comuni"], cs: true, titolo: "Comune (medievale)",
+    testo: "Una città del Medioevo che si governa da sola, attraverso cittadini eletti, senza obbedire a un signore feudale. Non è il «comune» di oggi." },
+  { t: ["Signoria", "Signorie"], cs: true, titolo: "Signoria",
+    testo: "Quando una sola famiglia potente prende il comando di una città (al posto del governo dei cittadini del Comune). Es. i Medici a Firenze, i Visconti a Milano." },
+  { t: ["corporazioni", "corporazione", "le arti"], titolo: "Corporazioni (arti)",
+    testo: "Le associazioni di mestiere del Medioevo (es. i fabbri, i mercanti di lana): stabilivano regole, prezzi e qualità del lavoro. Si chiamavano anche «arti»." },
+  { t: ["borghesia", "borghesi", "borghese"], titolo: "Borghesia",
+    testo: "I cittadini che vivono nei «borghi» (le città) di commercio e artigianato: mercanti, banchieri, artigiani. Una classe nuova, né nobile né contadina." },
+  { t: ["crociata", "crociate", "crociati"], titolo: "Crociate",
+    testo: "Le spedizioni militari con cui i cristiani d'Europa cercarono di riconquistare la Terrasanta (Gerusalemme) ai musulmani, tra l'XI e il XIII secolo." },
+  { t: ["Saraceni", "saraceni", "musulmani", "musulmano", "mori"], titolo: "Musulmani (Saraceni)",
+    testo: "I seguaci dell'Islam. Nei testi medievali europei sono spesso chiamati <b>Saraceni</b> o «Mori»: indicano gli stessi popoli di religione islamica." },
+  { t: ["pellegrinaggio", "pellegrinaggi", "pellegrini", "pellegrino"], titolo: "Pellegrinaggio",
+    testo: "Un viaggio verso un luogo sacro (Gerusalemme, Roma, Santiago) compiuto per fede. Chi lo fa è un <b>pellegrino</b>." },
+  { t: ["eresia", "eresie", "eretici", "eretico"], titolo: "Eresia",
+    testo: "Un'idea religiosa giudicata sbagliata e pericolosa dalla Chiesa ufficiale. Chi la sostiene è un <b>eretico</b> e veniva perseguitato." },
+  { t: ["peste nera", "peste"], titolo: "Peste nera",
+    testo: "La terribile epidemia che a metà del Trecento uccise circa un terzo degli europei, diffondendosi lungo le rotte commerciali." },
+  { t: ["monarchia nazionale", "monarchie nazionali", "monarchia"], titolo: "Monarchia nazionale",
+    testo: "Uno Stato grande e compatto guidato da un solo re forte (come Francia e Inghilterra), che riduce il potere dei nobili e dei feudatari." },
+  { t: ["Umanesimo", "umanisti", "umanista"], titolo: "Umanesimo",
+    testo: "Il movimento culturale che rimette l'uomo al centro e riscopre gli autori greci e latini. È la base del Rinascimento." },
+  { t: ["Rinascimento", "rinascimentale"], titolo: "Rinascimento",
+    testo: "La grande stagione di arte, scienza e cultura (XV-XVI secolo) nata in Italia, che «fa rinascere» i modelli dell'antichità classica." },
+  { t: ["mecenate", "mecenati", "mecenatismo"], titolo: "Mecenate",
+    testo: "Un ricco e potente (un signore, un papa) che finanzia e protegge artisti e studiosi. Es. Lorenzo de' Medici." },
+  { t: ["Riforma", "riforma protestante", "protestanti", "protestante", "luterani"], titolo: "Riforma protestante",
+    testo: "Il movimento avviato da Lutero (1517) che, criticando gli abusi della Chiesa di Roma, diede origine a nuove Chiese cristiane: i <b>protestanti</b>." },
+  { t: ["indulgenze", "indulgenza"], titolo: "Indulgenze",
+    testo: "Secondo la Chiesa, lo sconto delle pene per i peccati. Il fatto che venissero <b>vendute</b> in cambio di denaro fece infuriare Lutero." },
+  { t: ["Controriforma", "Riforma cattolica"], titolo: "Controriforma",
+    testo: "La risposta della Chiesa cattolica alla Riforma protestante: riforma interna, Concilio di Trento e lotta contro le idee considerate eretiche." },
+  { t: ["Concilio di Trento", "concilio"], titolo: "Concilio",
+    testo: "Una grande assemblea dei capi della Chiesa che decide su questioni di fede. Quello di <b>Trento</b> guidò la Controriforma." },
+  { t: ["cavaliere", "cavalieri", "cavalleria"], titolo: "Cavaliere",
+    testo: "Un guerriero a cavallo, di solito nobile, legato da un giuramento di fedeltà al suo signore. La <b>cavalleria</b> era anche un codice di valori (onore, coraggio, protezione dei deboli)." },
+  { t: ["Normanni", "normanni", "normanna"], titolo: "Normanni",
+    testo: "«Uomini del Nord»: guerrieri di origine scandinava che si stanziarono in Francia e poi conquistarono l'Inghilterra e l'Italia meridionale." }
+];
+
+let GLOSS_RE = null, GLOSS_MAP = null;
+function buildGlossIndex() {
+  GLOSS_MAP = new Map();
+  const forms = [];
+  GLOSSARIO.forEach((e, idx) => {
+    e._exact = new Set(e.t);
+    e.t.forEach(f => { GLOSS_MAP.set(f.toLowerCase(), idx); forms.push(f); });
+  });
+  forms.sort((a, b) => b.length - a.length);
+  const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const alt = forms.map(esc).join('|');
+  try {
+    GLOSS_RE = new RegExp('(?<![\\p{L}\\p{N}])(?:' + alt + ')(?![\\p{L}\\p{N}])', 'giu');
+  } catch (e) {
+    GLOSS_RE = new RegExp('\\b(?:' + alt + ')\\b', 'gi'); // fallback browser vecchi
+  }
+}
+function annotateGlossary(root) {
+  if (!root) return;
+  if (!GLOSS_RE) buildGlossIndex();
+  const seen = new Set(); // evidenzia ogni termine solo alla prima comparsa nella pagina
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const parent = node.parentNode;
+    if (!parent || (parent.classList && parent.classList.contains('gl'))) return;
+    const text = node.nodeValue;
+    GLOSS_RE.lastIndex = 0;
+    let m, lastIndex = 0; const pieces = []; let any = false;
+    while ((m = GLOSS_RE.exec(text))) {
+      const matched = m[0];
+      const idx = GLOSS_MAP.get(matched.toLowerCase());
+      if (idx == null) continue;
+      const entry = GLOSSARIO[idx];
+      if (entry.cs && !entry._exact.has(matched)) continue; // richiede maiuscola
+      if (seen.has(idx)) continue;                            // già evidenziato
+      seen.add(idx); any = true;
+      pieces.push(document.createTextNode(text.slice(lastIndex, m.index)));
+      const span = document.createElement('span');
+      span.className = 'gl'; span.dataset.gi = idx; span.textContent = matched;
+      pieces.push(span);
+      lastIndex = m.index + matched.length;
+    }
+    if (any) {
+      pieces.push(document.createTextNode(text.slice(lastIndex)));
+      const frag = document.createDocumentFragment();
+      pieces.forEach(p => frag.appendChild(p));
+      parent.replaceChild(frag, node);
+    }
+  });
+}
+function showGlossPopup(span) {
+  const idx = +span.dataset.gi; const entry = GLOSSARIO[idx]; if (!entry) return;
+  const pop = document.getElementById('glPop'); if (!pop) return;
+  pop.querySelector('.gl-title').innerHTML = entry.titolo;
+  pop.querySelector('.gl-body').innerHTML = entry.testo;
+  pop.classList.add('show');
+  const r = span.getBoundingClientRect();
+  const pw = Math.min(pop.offsetWidth, 340), ph = pop.offsetHeight;
+  let left = r.left, top = r.bottom + 8;
+  if (left + pw > window.innerWidth - 10) left = window.innerWidth - pw - 10;
+  if (left < 10) left = 10;
+  if (top + ph > window.innerHeight - 10) top = r.top - ph - 8; // sopra se non c'è spazio sotto
+  if (top < 10) top = 10;
+  pop.style.left = left + 'px'; pop.style.top = top + 'px';
+}
+function hideGlossPopup() { const pop = document.getElementById('glPop'); if (pop) pop.classList.remove('show'); }
+document.addEventListener('click', e => {
+  const span = e.target.closest && e.target.closest('.gl');
+  if (span) { e.stopPropagation(); stopDecifra(false); showGlossPopup(span); return; }
+  if (e.target.closest && e.target.closest('#glPop')) return;
+  if (e.target.closest && e.target.closest('.decifra-btn')) return;
+  stopDecifra(); hideGlossPopup();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { stopDecifra(); hideGlossPopup(); } });
+(function () { const c = document.querySelector('#glPop .gl-close'); if (c) c.addEventListener('click', () => { stopDecifra(); hideGlossPopup(); }); })();
+
+/* ── "Decifra il linguaggio degli storici": pulsa i termini, suona, apre i pop-up ── */
+let DECIFRA_TIMERS = [];
+let _audioCtx = null;
+function playDecodeChime() {
+  try {
+    _audioCtx = _audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = _audioCtx; if (ctx.state === 'suspended') ctx.resume();
+    const now = ctx.currentTime;
+    const notes = [523.25, 659.25, 783.99]; // Do-Mi-Sol: un piccolo arpeggio "magico"
+    notes.forEach((f, k) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f;
+      const t = now + k * 0.11;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.18, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(t); o.stop(t + 0.45);
+    });
+  } catch (e) { /* audio non disponibile: amen */ }
+}
+function stopDecifra(clearFlash) {
+  DECIFRA_TIMERS.forEach(t => clearTimeout(t)); DECIFRA_TIMERS = [];
+  if (clearFlash !== false) {
+    document.querySelectorAll('.gl.decifra-flash').forEach(s => s.classList.remove('decifra-flash'));
+  }
+}
+function decifraLinguaggio() {
+  const page = document.querySelector('.book-page.active') || document.querySelector('.book-page');
+  if (!page) return;
+  const spans = [...page.querySelectorAll('.gl')];
+  if (!spans.length) { showToast('In questa pagina non ci sono termini da decifrare'); return; }
+  stopDecifra(); hideGlossPopup();
+  playDecodeChime();
+  spans.forEach(s => s.classList.add('decifra-flash'));
+  DECIFRA_TIMERS.push(setTimeout(() => spans.forEach(s => s.classList.remove('decifra-flash')), 3600));
+  let i = 0;
+  const step = () => {
+    if (i >= spans.length) { hideGlossPopup(); return; }
+    showGlossPopup(spans[i]); i++;
+    DECIFRA_TIMERS.push(setTimeout(step, 2300));
+  };
+  DECIFRA_TIMERS.push(setTimeout(step, 450));
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('.decifra-btn');
+  if (b) { e.stopPropagation(); decifraLinguaggio(); }
+});
+
 function mappaConcettualeHtml(i) {
   const m = MAPPE[i];
   if (!m) return '<p class="section-hint">Mappa non disponibile per questo capitolo.</p>';
@@ -2158,13 +2483,15 @@ function mappaConcettualeHtml(i) {
   return `
     <div class="mappa">
       <div class="mc-domanda">${esc(m.domanda)}</div>
-      <div class="mc-row">${cause}</div>
-      <div class="mc-link">↓<span>la situazione porta a una scelta</span></div>
-      <div class="mc-node mc-scelta"><span class="mc-tag">La scelta storica</span>${esc(m.scelta)}</div>
-      <div class="mc-link">↓<span>che produce conseguenze</span></div>
-      <div class="mc-row">${cons}</div>
-      <div class="mc-link">↓<span>e nel tempo lascia un'eredità</span></div>
-      <div class="mc-node mc-eredita"><span class="mc-tag">Fino a oggi</span>${esc(m.eredita)}</div>
+      <div class="mc-flow">
+        <div class="mc-col"><div class="mc-coltag">La situazione</div>${cause}</div>
+        <div class="mc-arrow">→</div>
+        <div class="mc-col"><div class="mc-coltag">La scelta storica</div><div class="mc-node mc-scelta">${esc(m.scelta)}</div></div>
+        <div class="mc-arrow">→</div>
+        <div class="mc-col"><div class="mc-coltag">Le conseguenze</div>${cons}</div>
+        <div class="mc-arrow">→</div>
+        <div class="mc-col"><div class="mc-coltag">Fino a oggi</div><div class="mc-node mc-eredita">${esc(m.eredita)}</div></div>
+      </div>
     </div>`;
 }
 
@@ -2187,6 +2514,7 @@ function showPage(idx) {
   document.querySelectorAll('#bookDots .book-dot').forEach((d, n) => d.classList.toggle('on', n === idx));
   const stage = document.getElementById('bookStage');
   if (stage) stage.scrollTop = 0;
+  if (typeof stopTTS === 'function') stopTTS();
 }
 
 function buildDots() {
@@ -2246,9 +2574,11 @@ function buildBook(cap, i) {
   addPage('lesson', 'La lezione', p => {
     p.innerHTML = `<div class="section-label">📖 La lezione</div>
       <p class="section-hint">Leggi con attenzione: è il contenuto da studiare per la verifica o l'interrogazione.</p>
+      <button class="decifra-btn" type="button"><span class="di">🔍</span> Decifra il linguaggio degli storici</button>
       <div class="block lesson page-scroll"></div>`;
     p.querySelector('.lesson').innerHTML = cap.paragrafi.map(pp =>
       `<div class="para"><h4>${pp.t}</h4><p>${pp.c}</p></div>`).join('');
+    annotateGlossary(p.querySelector('.lesson'));
   });
 
   // 2 — Da memorizzare (parole chiave + date)
@@ -2269,7 +2599,9 @@ function buildBook(cap, i) {
   addPage('mappa', 'Mappa concettuale', p => {
     p.innerHTML = `<div class="section-label">🧭 Mappa concettuale: causa → scelta → conseguenze</div>
       <p class="section-hint">La catena di cause ed effetti del capitolo: studiala per ricostruire il <em>perché</em>, non solo il <em>cosa</em>.</p>
+      <button class="decifra-btn" type="button"><span class="di">🔍</span> Decifra il linguaggio degli storici</button>
       <div class="page-scroll">${mappaConcettualeHtml(i)}</div>`;
+    annotateGlossary(p.querySelector('.page-scroll'));
   });
 
   // 4 — Mappa storica (Running Reality, caricata su richiesta)
@@ -2563,6 +2895,7 @@ function refreshDoneBanner() {
 }
 
 function goHome() {
+  if (typeof stopTTS === 'function') stopTTS();
   viewChapter.style.display = 'none';
   viewQuad.style.display = 'none';
   viewDocenti.style.display = 'none';
@@ -2665,6 +2998,134 @@ function generaPdfQuaderno() {
   setTimeout(() => window.print(), 60);
 }
 document.getElementById('printQuad').addEventListener('click', generaPdfQuaderno);
+
+/* ============ TOAST (messaggio di conferma temporaneo) ============ */
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* ============ ACCESSIBILITÀ: dimensione del testo ============ */
+const TXT_KEY = 'ponti-storia-testo';
+const TXT_LEVELS = [1, 1.15, 1.32]; // normale / grande / molto grande
+let txtLevel = 0;
+try { const v = parseInt(localStorage.getItem(TXT_KEY), 10); if (v >= 0 && v < TXT_LEVELS.length) txtLevel = v; } catch (e) {}
+function applyTextScale() {
+  const w = document.querySelector('.wrap');
+  if (w) w.style.zoom = TXT_LEVELS[txtLevel];
+  const down = document.getElementById('txtDown'), up = document.getElementById('txtUp');
+  if (down) down.disabled = (txtLevel === 0);
+  if (up) up.disabled = (txtLevel === TXT_LEVELS.length - 1);
+}
+function changeTextScale(delta) {
+  txtLevel = Math.max(0, Math.min(TXT_LEVELS.length - 1, txtLevel + delta));
+  try { localStorage.setItem(TXT_KEY, String(txtLevel)); } catch (e) {}
+  applyTextScale();
+  showToast(txtLevel === 0 ? 'Testo: dimensione normale' : (txtLevel === 1 ? 'Testo: grande' : 'Testo: molto grande'));
+}
+
+/* ============ ACCESSIBILITÀ: lettura ad alta voce (offline) ============ */
+const synth = window.speechSynthesis || null;
+let ttsOn = false;
+function setTtsBtn(on) {
+  ttsOn = on;
+  const b = document.getElementById('ttsBtn');
+  if (b) { b.classList.toggle('on', on); b.innerHTML = on ? '⏹ Ferma' : '🔊 Leggi'; }
+}
+function stopTTS() { if (synth) synth.cancel(); setTtsBtn(false); }
+function currentReadText() {
+  if (viewChapter && viewChapter.style.display === 'block') {
+    const pg = document.querySelector('.book-page.active');
+    if (pg) return pg.innerText;
+  }
+  const candidates = [viewHome, viewQuad, viewDocenti];
+  const vis = candidates.find(s => s && getComputedStyle(s).display !== 'none');
+  return (vis || document.querySelector('.wrap') || document.body).innerText;
+}
+function pickItalianVoice() {
+  if (!synth) return null;
+  const voices = synth.getVoices() || [];
+  return voices.find(v => /^it($|[-_])/i.test(v.lang)) || null;
+}
+function readAloud() {
+  if (!synth) { showToast('La lettura ad alta voce non è disponibile su questo browser.'); return; }
+  if (ttsOn) { stopTTS(); return; }
+  synth.cancel();
+  const text = (currentReadText() || '').replace(/\s+/g, ' ').trim();
+  if (!text) { showToast('Niente da leggere su questa pagina.'); return; }
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'it-IT'; u.rate = 0.95; u.pitch = 1;
+  const v = pickItalianVoice(); if (v) u.voice = v;
+  u.onend = () => setTtsBtn(false);
+  u.onerror = () => setTtsBtn(false);
+  synth.speak(u);
+  setTtsBtn(true);
+}
+if (synth && typeof synth.onvoiceschanged !== 'undefined') {
+  synth.onvoiceschanged = () => {}; // forza il caricamento delle voci
+}
+
+/* ============ ESPORTA / IMPORTA i dati dello studente ============ */
+function exportData() {
+  const nick = (identity && identity.nickname) ? identity.nickname : 'studente';
+  const cls = (identity && identity.classe) ? identity.classe : '';
+  const payload = { app: 'ponti-storia', version: 1, exportedAt: new Date().toISOString(), identity: identity || null, progress: progress };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = ('Ponti storia - ' + nick + ' ' + cls).trim() + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  showToast('Dati esportati ✓');
+}
+function importDataFile(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    let data;
+    try { data = JSON.parse(reader.result); } catch (e) { showToast('File non valido: non è un backup leggibile.'); return; }
+    if (!data || typeof data !== 'object' || data.app !== 'ponti-storia' || typeof data.progress !== 'object') {
+      showToast('File non valido: non è un backup di «Ponti tra Storia e Presente».'); return;
+    }
+    if (!confirm('Importare questi dati?\nI progressi attualmente su questo dispositivo verranno sostituiti.')) return;
+    progress = data.progress || {};
+    saveProgress(progress);
+    if (data.identity && data.identity.nickname) {
+      identity = data.identity;
+      try { localStorage.setItem(IDENTITY_KEY, JSON.stringify(identity)); } catch (e) {}
+    }
+    updateHeader();
+    renderSyncFooter();
+    openQuaderno();
+    showToast('Dati importati ✓');
+  };
+  reader.readAsText(file);
+}
+
+/* ---- wiring barra accessibilità + export/import ---- */
+(function () {
+  const tts = document.getElementById('ttsBtn');
+  if (tts) tts.addEventListener('click', readAloud);
+  const down = document.getElementById('txtDown');
+  if (down) down.addEventListener('click', () => changeTextScale(-1));
+  const up = document.getElementById('txtUp');
+  if (up) up.addEventListener('click', () => changeTextScale(1));
+  applyTextScale();
+
+  const exp = document.getElementById('exportData');
+  if (exp) exp.addEventListener('click', exportData);
+  const imp = document.getElementById('importData');
+  const impFile = document.getElementById('importFile');
+  if (imp && impFile) {
+    imp.addEventListener('click', () => impFile.click());
+    impFile.addEventListener('change', () => { if (impFile.files && impFile.files[0]) importDataFile(impFile.files[0]); impFile.value = ''; });
+  }
+})();
 document.getElementById('prevBtn').addEventListener('click', () => openChapter(currentIndex - 1));
 document.getElementById('nextBtn').addEventListener('click', () => openChapter(currentIndex + 1));
 
