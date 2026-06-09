@@ -75,6 +75,11 @@
     border-radius: 30px; padding: 9px 20px; font: inherit; font-weight: 700; cursor: pointer;
   }
   .info-btn:hover { background: rgba(255,255,255,.28); }
+  .dash-access { margin-top: 26px; padding: 18px 20px; background: #f3ede1; border: 1px solid #e3d9cb; border-radius: 12px; }
+  .dash-access h3 { margin: 0 0 6px; }
+  .dash-access button { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 11px 20px; font: inherit; font-weight: 700; cursor: pointer; }
+  .dash-access button:hover { opacity: .92; }
+  .dash-note { margin: 10px 0 0; font-size: .85rem; color: var(--muted); min-height: 1em; }
   .progress-bar-wrap {
     max-width: 900px; margin: 14px auto 0; background: rgba(255,255,255,.25);
     border-radius: 30px; height: 12px; overflow: hidden;
@@ -537,6 +542,13 @@
       <p>Lo strumento conosce e dichiara i propri limiti. L'analogia tra passato e presente è euristica, non identità: va costantemente vigilata perché non degeneri in anacronismo. La selezione dei nodi storici comporta inevitabili omissioni. Soprattutto, <strong>il ragionamento storico vero — la critica delle fonti, la contestualizzazione, il confronto delle interpretazioni — non è delegabile a un'applicazione</strong>: avviene nella relazione educativa. L'app prepara il terreno e raccoglie domande; la storia, come disciplina, si fa in classe.</p>
 
       <p class="ref" style="margin-top:24px">I contenuti storici sono ancorati al manuale in adozione e impostati per restare fedeli ai fatti; le situazioni di analogia sono collocate nel presente del preadolescente. Osservazioni e proposte di revisione sono benvenute: questo impianto è, esso stesso, una bozza aperta al confronto.</p>
+
+      <div class="dash-access">
+        <h3>🔐 Dashboard docente</h3>
+        <p>Riservata all'insegnante. Per aprirla serve il <strong>token</strong> di accesso (impostato nello script). Il token non è memorizzato nell'app: verrà chiesto qui ogni volta.</p>
+        <button id="openDashboard">📊 Apri la dashboard dei progressi</button>
+        <p class="dash-note" id="dashNote"></p>
+      </div>
     </div>
     <div class="nav-chapters"><button id="backBtn4">← Torna all'elenco dei capitoli</button></div>
   </section>
@@ -2292,6 +2304,20 @@ document.getElementById('backBtn2').addEventListener('click', goHome);
 document.getElementById('backBtn3').addEventListener('click', goHome);
 document.getElementById('backBtn4').addEventListener('click', goHome);
 document.getElementById('openDocenti').addEventListener('click', openDocenti);
+(function () {
+  const btn = document.getElementById('openDashboard');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const note = document.getElementById('dashNote');
+    if (!CONFIG.SYNC_URL) { if (note) note.textContent = 'Sincronizzazione non configurata (SYNC_URL mancante).'; return; }
+    const token = prompt('Token di accesso alla dashboard:');
+    if (token === null) return;
+    if (!token.trim()) { if (note) note.textContent = 'Token vuoto: accesso annullato.'; return; }
+    const url = CONFIG.SYNC_URL + (CONFIG.SYNC_URL.indexOf('?') >= 0 ? '&' : '?') + 'key=' + encodeURIComponent(token.trim());
+    window.open(url, '_blank', 'noopener');
+    if (note) note.textContent = 'Dashboard aperta in una nuova scheda.';
+  });
+})();
 document.getElementById('homeLink').addEventListener('click', goHome);
 document.getElementById('openQuad').addEventListener('click', openQuaderno);
 document.getElementById('printQuad').addEventListener('click', () => window.print());
