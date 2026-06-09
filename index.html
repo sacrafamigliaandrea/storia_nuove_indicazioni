@@ -70,6 +70,11 @@
     padding: 9px 20px; font: inherit; font-weight: 700; cursor: pointer;
   }
   .quad-btn:hover { opacity: .9; }
+  .info-btn {
+    background: rgba(255,255,255,.15); color: #fff; border: 1.5px solid rgba(255,255,255,.7);
+    border-radius: 30px; padding: 9px 20px; font: inherit; font-weight: 700; cursor: pointer;
+  }
+  .info-btn:hover { background: rgba(255,255,255,.28); }
   .progress-bar-wrap {
     max-width: 900px; margin: 14px auto 0; background: rgba(255,255,255,.25);
     border-radius: 30px; height: 12px; overflow: hidden;
@@ -405,6 +410,7 @@
     <div class="stat-pill">📚 <b id="statChapters">0</b>/18 capitoli</div>
     <div class="stat-pill">🎓 <b id="statComp">0</b> competenze</div>
     <button class="quad-btn" id="openQuad">📒 Il mio quaderno</button>
+    <button class="info-btn" id="openDocenti">ℹ️ Info docenti</button>
   </div>
   <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
 </header>
@@ -539,7 +545,6 @@
 
 <footer class="site">
   Realizzato per la classe prima · allineato alle Nuove Indicazioni 2025 · i fatti storici restano intatti, i dilemmi vivono nel presente
-  <div style="margin-top:8px"><button class="doc-link" id="openDocenti">ℹ️ Per i docenti: nota metodologica e impianto storico-didattico</button></div>
   <div id="syncFooter" style="margin-top:8px"></div>
   <div class="copyright">© 2026 Andrea Cerioli – Animatore digitale · Scuola Secondaria di I grado Sacra Famiglia</div>
 </footer>
