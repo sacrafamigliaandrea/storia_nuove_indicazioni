@@ -38,6 +38,22 @@
     color: #fff; padding: 26px 18px 30px; text-align: center;
   }
   header.site .inner { max-width: 900px; margin: 0 auto; }
+  .school-banner {
+    max-width: 900px; margin: 0 auto 14px; display: flex; align-items: center;
+    justify-content: center; gap: 12px;
+  }
+  .school-banner img {
+    width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+    background: #fff; padding: 3px; box-shadow: 0 2px 8px rgba(0,0,0,.25); flex: 0 0 auto;
+  }
+  .school-banner .school-name {
+    font-size: .95rem; font-weight: 600; letter-spacing: .4px; text-align: left;
+    line-height: 1.25; text-transform: uppercase; opacity: .96;
+  }
+  @media (max-width: 520px) {
+    .school-banner { flex-direction: column; gap: 8px; }
+    .school-banner .school-name { text-align: center; }
+  }
   header.site h1 { margin: 0 0 6px; font-size: 1.85rem; letter-spacing: .3px; cursor: pointer; }
   header.site p { margin: 0; opacity: .95; font-size: 1rem; }
   .head-stats {
@@ -110,7 +126,7 @@
   .chapter-card:not(.done) .badge::after { content: "📖"; opacity: .35; }
 
   /* SUBVIEW SHELL */
-  #view-chapter, #view-competenze { display: none; }
+  #view-chapter, #view-competenze, #view-docenti { display: none; }
   .back-btn {
     background: none; border: none; color: var(--accent); font: inherit;
     font-weight: 600; cursor: pointer; padding: 18px 0 6px; font-size: 1rem;
@@ -175,14 +191,70 @@
     transition: border-color .15s, background .15s;
   }
   .option-btn:hover:not(:disabled) { border-color: var(--accent-soft); background: #fff; }
-  .option-btn.chosen { border-color: var(--accent); background: #fff; }
+  .option-btn.chosen { border-color: var(--accent); background: #fbf7f1; font-weight: 600; }
   .option-btn:disabled { cursor: default; }
-  .option-btn.best.chosen { border-color: var(--ok); background: var(--ok-soft); }
   .feedback { margin-top: 12px; padding: 14px 16px; border-radius: 10px; background: #fff8ec; border: 1px solid var(--line); display: none; }
   .feedback.show { display: block; }
   .feedback .lead { font-weight: 700; margin-bottom: 4px; }
   .ponte-reveal { margin-top: 12px; display: none; }
   .ponte-reveal.show { display: block; }
+  .confronto {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: stretch;
+    margin-bottom: 12px;
+  }
+  .cf-box { border-radius: 12px; padding: 12px 14px; border: 2px solid var(--line); }
+  .cf-label { font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; opacity: .85; margin-bottom: 6px; }
+  .cf-text { font-size: .95rem; line-height: 1.45; }
+  .cf-tu { background: #eef5f4; }
+  .cf-tu .cf-label { color: #2f6b6b; }
+  .cf-storia { background: #f3ede1; }
+  .cf-storia .cf-label { color: #6b5a36; }
+  .cf-vs { align-self: center; font-size: 1.3rem; font-weight: 800; color: #9a8a72; }
+  .cf-nota {
+    margin: 0 0 12px; background: #fff; border: 1px solid var(--line); border-left: 4px solid #9a8a72;
+    border-radius: 10px; padding: 11px 13px; font-size: .86rem; line-height: 1.5; color: #5a4f44;
+  }
+  .cf-nota b { color: #3c2e28; }
+  @media (max-width: 560px) {
+    .confronto { grid-template-columns: 1fr; }
+    .cf-vs { transform: rotate(90deg); }
+  }
+  .rifl { margin-bottom: 12px; background: #f7f4ee; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .rifl-label { display: block; font-weight: 800; font-size: .92rem; color: #2f6b6b; }
+  .rifl-hint { font-weight: 500; color: var(--muted); font-size: .8rem; }
+  .rifl-q { margin: 6px 0 8px; font-size: .9rem; color: #5a4f44; line-height: 1.45; }
+  .rifl-ta {
+    width: 100%; box-sizing: border-box; resize: vertical; min-height: 64px;
+    border: 2px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; background: #fff; color: var(--ink);
+  }
+  .rifl-ta:focus { outline: none; border-color: #2f6b6b; }
+  .rifl-status { margin-top: 6px; min-height: 1em; font-size: .82rem; color: var(--ok); }
+
+  /* MAPPA CONCETTUALE (causa → scelta → conseguenze → eredità) */
+  .mappa { background: #fbf9f4; border: 1px solid var(--line); border-radius: 14px; padding: 18px 14px; }
+  .mc-domanda { text-align: center; font-weight: 800; color: #8a4b2f; font-size: 1.02rem; margin-bottom: 14px; }
+  .mc-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .mc-node { border-radius: 12px; padding: 11px 14px; font-size: .92rem; line-height: 1.42; border: 2px solid; box-sizing: border-box; }
+  .mc-tag { display: block; font-size: .66rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 800; opacity: .7; margin-bottom: 3px; }
+  .mc-causa { background: #eef2f6; border-color: #c4d2de; flex: 1 1 240px; max-width: 360px; }
+  .mc-scelta { background: #fbeecf; border-color: var(--gold); font-weight: 600; margin: 0 auto; max-width: 620px; text-align: center; }
+  .mc-cons { background: #e8f1ea; border-color: #bcd9c4; flex: 1 1 240px; max-width: 360px; }
+  .mc-eredita { background: #f1e8f3; border-color: #d3b9da; margin: 0 auto; max-width: 620px; text-align: center; }
+  .mc-link { text-align: center; color: #b0a48f; font-weight: 800; margin: 8px 0; font-size: 1.15rem; line-height: 1.2; }
+  .mc-link span { display: block; font-size: .78rem; font-weight: 600; color: var(--muted); }
+
+  /* PAGINA PER I DOCENTI */
+  .doc-link { background: none; border: none; color: #fff; text-decoration: underline; cursor: pointer; font: inherit; opacity: .9; }
+  .doc-link:hover { opacity: 1; }
+  .doc-page { max-width: 820px; margin: 0 auto; }
+  .doc-page h2 { color: #8a4b2f; margin: 0 0 4px; }
+  .doc-page h3 { color: #2f6b6b; margin: 26px 0 6px; border-bottom: 2px solid var(--line); padding-bottom: 4px; }
+  .doc-page h4 { color: #8a4b2f; margin: 16px 0 4px; }
+  .doc-page p, .doc-page li { line-height: 1.62; color: #3c342c; }
+  .doc-page .lead-par { font-size: 1.05rem; color: var(--muted); }
+  .doc-page blockquote { margin: 12px 0; padding: 10px 16px; border-left: 4px solid var(--gold); background: #fbf3df; border-radius: 0 8px 8px 0; font-style: italic; color: #5a4f44; }
+  .doc-page .ref { font-size: .86rem; color: var(--muted); }
+  .doc-meta { font-size: .85rem; color: var(--muted); margin-bottom: 18px; }
   .ponte-box { background: var(--bridge-soft); border-radius: 10px; padding: 14px 16px; border-left: 5px solid var(--bridge); }
   .ponte-box .lead { font-weight: 700; color: var(--bridge); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
   .comp-award {
@@ -227,6 +299,86 @@
   .quad-empty { background: var(--card); border-radius: 14px; padding: 30px; text-align: center; color: var(--muted); box-shadow: var(--shadow); }
 
   footer.site { text-align: center; color: var(--muted); font-size: .85rem; padding: 20px; }
+  footer.site .copyright { margin-top: 12px; padding-top: 12px; border-top: 1px solid #e3d9cb; font-size: .78rem; opacity: .85; }
+
+  /* VERIFICA */
+  .quiz-card {
+    background: var(--card); border-radius: 14px; padding: 18px 20px;
+    box-shadow: var(--shadow); margin: 14px 0; border-left: 6px solid var(--gold);
+  }
+  .quiz-card.ok { border-left-color: var(--ok); }
+  .quiz-type { font-size: .78rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
+  .quiz-q { font-weight: 700; margin: 4px 0 10px; }
+  .reorder-list { display: flex; flex-direction: column; gap: 8px; }
+  .reorder-item {
+    display: flex; align-items: center; gap: 10px; background: #faf6ef;
+    border: 2px solid var(--line); border-radius: 10px; padding: 10px 12px;
+  }
+  .reorder-item.correct { border-color: var(--ok); background: var(--ok-soft); }
+  .reorder-item.wrong { border-color: #c0563a; background: #fbe7e0; }
+  .reorder-item .ev { flex: 1; }
+  .reorder-item .yr-hide { font-weight: 700; color: var(--accent); display: none; }
+  .quiz-card.ok .yr-hide { display: inline; }
+  .reorder-arrows { display: flex; flex-direction: column; gap: 2px; }
+  .reorder-arrows button {
+    border: none; background: var(--accent-soft); color: #fff; border-radius: 6px;
+    width: 26px; height: 20px; cursor: pointer; font-size: .7rem; line-height: 1; padding: 0;
+  }
+  .reorder-arrows button:disabled { opacity: .3; cursor: default; }
+  .match-row { display: grid; grid-template-columns: 1fr 1.3fr; gap: 10px; align-items: center; margin-bottom: 8px; }
+  .match-term { font-weight: 700; color: var(--accent); }
+  .match-row select {
+    width: 100%; padding: 9px 10px; border: 2px solid var(--line); border-radius: 8px;
+    font: inherit; background: #faf6ef;
+  }
+  .match-row.correct select { border-color: var(--ok); background: var(--ok-soft); }
+  .match-row.wrong select { border-color: #c0563a; background: #fbe7e0; }
+  .hot-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hot-chip {
+    background: #faf6ef; border: 2px solid var(--line); border-radius: 20px;
+    padding: 8px 14px; font: inherit; cursor: pointer; transition: all .12s;
+  }
+  .hot-chip.sel { background: var(--bridge-soft); border-color: var(--bridge); }
+  .quiz-card.ok .hot-chip.correct { border-color: var(--ok); background: var(--ok-soft); }
+  .quiz-card.ok .hot-chip.missed { border-color: #c0563a; border-style: dashed; }
+  .quiz-card.ok .hot-chip.wrong { border-color: #c0563a; background: #fbe7e0; text-decoration: line-through; }
+  .quiz-check {
+    margin-top: 12px; background: var(--gold); color: #3c2e08; border: none; border-radius: 30px;
+    padding: 9px 20px; font: inherit; font-weight: 700; cursor: pointer;
+  }
+  .quiz-check:hover { opacity: .9; }
+  .quiz-result { margin-top: 10px; font-weight: 700; display: none; }
+  .quiz-result.show { display: block; }
+  .quiz-result.good { color: var(--ok); }
+  .quiz-result.bad { color: #c0563a; }
+
+  /* MODALE */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(43,36,32,.6); display: none;
+    align-items: center; justify-content: center; padding: 18px; z-index: 100;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-card {
+    background: var(--card); border-radius: 16px; padding: 26px; max-width: 440px; width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  }
+  .modal-card h3 { margin: 0 0 8px; color: var(--accent); font-size: 1.4rem; }
+  .modal-card p { color: var(--muted); margin: 0 0 14px; font-size: .95rem; }
+  .modal-label { display: block; font-weight: 700; font-size: .85rem; margin: 10px 0 4px; }
+  .modal-input {
+    width: 100%; padding: 11px 13px; border: 2px solid var(--line); border-radius: 10px;
+    font: inherit; background: #faf6ef;
+  }
+  .modal-input:focus { outline: none; border-color: var(--accent-soft); }
+  .modal-btn {
+    margin-top: 16px; width: 100%; background: var(--bridge); color: #fff; border: none;
+    border-radius: 30px; padding: 13px; font: inherit; font-weight: 700; cursor: pointer; font-size: 1.02rem;
+  }
+  .modal-btn:hover { opacity: .92; }
+  .modal-err { color: #c0563a; font-size: .85rem; margin-top: 8px; min-height: 1em; }
+  .modal-note { font-size: .8rem; color: var(--muted); margin: 14px 0 0; }
+  .sync-link { background: none; border: none; color: var(--accent); cursor: pointer; font: inherit; text-decoration: underline; font-size: .85rem; }
+  .sync-state { font-size: .82rem; color: var(--muted); }
 
   @media print {
     header.site, .quad-actions, .back-btn, footer.site { display: none !important; }
@@ -241,6 +393,10 @@
 </head>
 <body>
 <header class="site">
+  <div class="school-banner">
+    <img src="logo.jpg" alt="Logo Scuola Sacra Famiglia">
+    <div class="school-name">Scuola Secondaria di I grado<br>Sacra Famiglia</div>
+  </div>
   <div class="inner">
     <h1 id="homeLink">🌉 Ponti tra Storia e Presente</h1>
     <p>Studia la lezione, attraversa i ponti, costruisci le tue competenze</p>
@@ -290,9 +446,17 @@
       <div class="study-box dates"><h4>📅 Date da ricordare</h4><div id="chDates"></div></div>
     </div>
 
+    <div class="section-label">🧭 Mappa concettuale: causa → scelta → conseguenze</div>
+    <p class="section-hint">La catena di cause ed effetti del capitolo. Studiala per ricostruire il <em>perché</em> degli eventi, non solo il <em>cosa</em>.</p>
+    <div id="chMappa"></div>
+
     <div class="section-label">🌉 I ponti verso il presente</div>
     <p class="section-hint">Tre dilemmi di oggi, ognuno legato a un argomento della lezione. Scegli, leggi il ponte e conquista la competenza.</p>
     <div id="chDilemmas"></div>
+
+    <div class="section-label">📝 Mettiti alla prova</div>
+    <p class="section-hint">Tre esercizi per prepararti all'interrogazione: rimetti in ordine il tempo, collega i termini e riconosci le parole giuste.</p>
+    <div id="chVerifica"></div>
 
     <div class="chapter-done-banner" id="chDoneBanner">🎉 Hai attraversato tutti i ponti di questo capitolo! Le competenze sono nel tuo quaderno.</div>
 
@@ -316,11 +480,84 @@
     <div id="quadList"></div>
   </section>
 
+  <!-- PER I DOCENTI -->
+  <section id="view-docenti">
+    <button class="back-btn" id="backBtn3">← Torna all'elenco dei capitoli</button>
+    <div class="doc-page">
+      <h2>Nota metodologica e impianto storico-didattico</h2>
+      <p class="doc-meta">Documento rivolto ai docenti di Storia e, in particolare, agli estensori delle <em>Nuove Indicazioni 2025</em> · Applicazione «Ponti tra Storia e Presente» · Scuola secondaria di primo grado, classe prima.</p>
+
+      <p class="lead-par">Questa applicazione nasce dall'esigenza, posta dalle <em>Nuove Indicazioni 2025</em>, di <strong>colmare la distanza tra gli eventi narrati dalla storia e la quotidianità di un alunno di undici-dodici anni</strong>, senza per questo cedere a un uso strumentale o moralistico del passato. Le pagine che seguono rendono conto, in modo trasparente, di ogni scelta compiuta nella costruzione dello strumento, perché possa essere valutata con il rigore proprio della disciplina storica.</p>
+
+      <h3>1. Il quadro di riferimento</h3>
+      <p>L'impianto risponde a tre indicazioni che riteniamo centrali nel nuovo testo: la <strong>continuità tra passato e presente</strong> come chiave per dare senso allo studio della storia al primo anno; la <strong>centralità del campo di esperienza</strong> del preadolescente, cui ancorare concetti altrimenti astratti; la <strong>valutazione formativa</strong>, orientata a documentare i processi di apprendimento più che a sanzionare l'errore. L'app non sostituisce il libro di testo né la mediazione del docente: ne è un complemento per lo studio autonomo a casa, costruito sull'intero arco dei diciotto capitoli del manuale in adozione.</p>
+
+      <h3>2. Il modello dei «ponti»</h3>
+      <p>Ogni capitolo si conclude con tre <strong>ponti</strong>, articolati in quattro momenti:</p>
+      <ol>
+        <li><strong>Il fatto storico</strong> — un nodo concreto della lezione (un istituto, un evento, una decisione documentata), restituito senza alterazioni.</li>
+        <li><strong>Il presente dell'alunno</strong> — una situazione del suo campo di esperienza (il cortile, la chat di classe, il lavoro di gruppo) che presenta una <em>struttura analoga</em> al problema storico.</li>
+        <li><strong>Il dilemma</strong> — una scelta nel presente, di cui si mostrano le conseguenze, non la «correttezza».</li>
+        <li><strong>Il ponte</strong> — l'esplicitazione del legame analogico tra i due piani.</li>
+      </ol>
+      <p>La distanza temporale è colmata per <strong>analogia di struttura</strong> e non per appiattimento: il passato non viene attualizzato né giudicato col metro di oggi, ma usato come specchio che illumina meccanismi ricorrenti (il patto, la regola scritta, il capro espiatorio, l'equilibrio dei poteri). Il dilemma vive <em>nel presente dell'alunno</em>; il fatto storico resta intatto nel suo tempo.</p>
+
+      <h3>3. La scelta non giudicante: storia e morale</h3>
+      <p>È il punto su cui abbiamo lavorato con maggiore cura, perché tocca lo statuto epistemologico della disciplina. La storia non è un repertorio di buoni esempi: <strong>ha conosciuto la guerra come normalità, la schiavitù, la persecuzione delle minoranze</strong>; ciò che un'epoca riteneva legittimo, un'altra lo ripudia. Per questo l'applicazione evita con sistematicità due tentazioni opposte: erigere il passato a modello da imitare, oppure processarlo dal pulpito del presente.</p>
+      <blockquote>«La Storia non è un modello da imitare né da condannare. Qui non c'è una risposta giusta da indovinare: osserva le differenze e fatti delle domande. È in classe, con l'insegnante, che il confronto diventa davvero ragionamento storico.»</blockquote>
+      <p>Operativamente questo principio si traduce in tre accorgimenti:</p>
+      <ul>
+        <li>i <strong>riscontri ai dilemmi</strong> non premiano né rimproverano («ottima scelta», «sbagliato»), ma indicano sobriamente <em>dove conduce</em> ciascuna opzione: la dinamica causa-effetto sostituisce il voto morale;</li>
+        <li>nessuna opzione è marcata graficamente come «giusta»; il fatto che la scelta dell'alunno coincida con quella storica <strong>non è considerato indice di competenza</strong>, poiché anche la scelta della storia poteva essere fallace;</li>
+        <li>il riquadro «<strong>cosa faresti tu, oggi / cosa accadde, allora</strong>» è simmetrico e neutro: accosta due piani senza gerarchizzarli, lasciando l'interpretazione al lavoro d'aula.</li>
+      </ul>
+
+      <h3>4. La riflessione personale</h3>
+      <p>A ciascun ponte è affiancato uno spazio di scrittura libera, esplicitamente <strong>non valutato</strong>, in cui l'alunno annota se ciò che accadde allora sarebbe oggi «possibile, accettabile o opportuno». Non chiediamo una sentenza, ma l'avvio di una <strong>coscienza storica</strong>: la consapevolezza che le categorie del lecito e del normale mutano nel tempo. Queste annotazioni restano private e raggiungono il solo docente, che le riprende e le problematizza in classe, sede propria del giudizio storico argomentato.</p>
+
+      <h3>5. Le mappe concettuali causa-effetto</h3>
+      <p>Ogni capitolo è corredato da una mappa che esplicita la catena <strong>causa → scelta storica → conseguenze → eredità nel presente</strong>. La scelta di porre al centro la <em>decisione storica</em>, e non il mero accadimento, risponde a un'idea di storia come campo di possibilità e di responsabilità, non come destino. Le mappe sono insieme strumento di studio (per ricostruire il <em>perché</em> e non solo il <em>cosa</em>) e antidoto a una lettura puramente cronologica ed evenemenziale.</p>
+
+      <h3>6. La struttura della lezione e le prove</h3>
+      <p>Ciascun capitolo è una lezione completa: <strong>paragrafi tematici, parole chiave, date</strong>, pensati anche per l'interrogazione. Le prove di autoverifica adottano formati diversi dalla sola scelta multipla — <strong>riordino cronologico</strong> della linea del tempo, <strong>associazione</strong> termine-definizione, <strong>testo interattivo</strong> (hot text) — per sollecitare operazioni cognitive distinte: la successione, la relazione concettuale, il riconoscimento entro un contesto.</p>
+
+      <h3>7. La valutazione formativa e il quaderno delle competenze</h3>
+      <p>Non si attribuiscono punteggi né classifiche. L'avanzamento è registrato come <strong>processo</strong> (ponti attraversati, prove svolte) e confluisce in un «quaderno delle competenze», in cui ogni esperienza è formulata in prima persona come un saper fare trasferibile. La logica è quella della <strong>documentazione dei progressi</strong>, coerente con una valutazione che accompagna l'apprendimento anziché limitarsi a misurarlo.</p>
+
+      <h3>8. Tutela dei dati e dei minori</h3>
+      <p>L'applicazione funziona interamente offline e conserva i progressi sul dispositivo. La condivisione col docente, facoltativa, avviene per <strong>dato minimo</strong> e <strong>cifrato</strong>: l'alunno è identificato da un <em>nickname</em> e non dal nome reale; i dati sono cifrati (AES-GCM) sul dispositivo prima dell'invio e depositati in un foglio privato del docente, leggibili solo dopo l'inserimento della passphrase di classe. La protezione dei dati dei minori è dunque assunta come vincolo di progettazione, non come adempimento successivo.</p>
+
+      <h3>9. Limiti dichiarati</h3>
+      <p>Lo strumento conosce e dichiara i propri limiti. L'analogia tra passato e presente è euristica, non identità: va costantemente vigilata perché non degeneri in anacronismo. La selezione dei nodi storici comporta inevitabili omissioni. Soprattutto, <strong>il ragionamento storico vero — la critica delle fonti, la contestualizzazione, il confronto delle interpretazioni — non è delegabile a un'applicazione</strong>: avviene nella relazione educativa. L'app prepara il terreno e raccoglie domande; la storia, come disciplina, si fa in classe.</p>
+
+      <p class="ref" style="margin-top:24px">I contenuti storici sono ancorati al manuale in adozione e impostati per restare fedeli ai fatti; le situazioni di analogia sono collocate nel presente del preadolescente. Osservazioni e proposte di revisione sono benvenute: questo impianto è, esso stesso, una bozza aperta al confronto.</p>
+    </div>
+    <div class="nav-chapters"><button id="backBtn4">← Torna all'elenco dei capitoli</button></div>
+  </section>
+
 </div>
 
 <footer class="site">
   Realizzato per la classe prima · allineato alle Nuove Indicazioni 2025 · i fatti storici restano intatti, i dilemmi vivono nel presente
+  <div style="margin-top:8px"><button class="doc-link" id="openDocenti">ℹ️ Per i docenti: nota metodologica e impianto storico-didattico</button></div>
+  <div id="syncFooter" style="margin-top:8px"></div>
+  <div class="copyright">© 2026 Andrea Cerioli – Animatore digitale · Scuola Secondaria di I grado Sacra Famiglia</div>
 </footer>
+
+<!-- MODALE IDENTITÀ -->
+<div class="modal-overlay" id="identityModal">
+  <div class="modal-card">
+    <h3>👋 Benvenuto/a!</h3>
+    <p>Prima di iniziare, presentati. Il tuo <strong>nickname</strong> serve al tuo insegnante per riconoscere i tuoi progressi (non usare il nome vero: scegli un soprannome che concorderai con l'insegnante).</p>
+    <label class="modal-label">Il tuo nickname</label>
+    <input type="text" id="inpNick" class="modal-input" placeholder="es. AquilaRossa" maxlength="24" autocomplete="off">
+    <label class="modal-label">La tua classe</label>
+    <input type="text" id="inpClasse" class="modal-input" placeholder="es. 1A" maxlength="10" autocomplete="off">
+    <div class="modal-err" id="identityErr"></div>
+    <button class="modal-btn" id="saveIdentity">Inizia a studiare →</button>
+    <p class="modal-note">I dati di studio vengono inviati cifrati e restano riservati. Funziona anche senza internet: in quel caso i progressi restano su questo dispositivo.</p>
+  </div>
+</div>
 
 <script>
 const CAPITOLI = [
@@ -353,10 +590,11 @@ const CAPITOLI = [
       domanda: `Come si risolve davvero la discussione?`,
       opzioni: [
         { testo: "Decide chi è più grosso e urla di più: è sempre stato così.", best: false, fb: "È ciò che succedeva prima delle leggi scritte: comandava il più forte. Funziona finché non sei tu il più debole." },
-        { testo: "Prima di giocare scrivete insieme le regole su un foglio, valide per tutti.", best: true, fb: "Esatto: è l'idea dell'Editto di Rotari. Una regola scritta vale uguale per tutti e non dipende da chi urla." },
+        { testo: "Prima di giocare scrivete insieme le regole su un foglio, valide per tutti.", best: true, fb: "È l'idea dell'Editto di Rotari. Una regola scritta vale uguale per tutti e non dipende da chi urla." },
         { testo: "Lasciate perdere e cambiate gioco ogni volta che litigate.", best: false, fb: "Eviti lo scontro, ma il problema torna sempre. Serve un punto fermo condiviso: la regola scritta." }
       ],
       ponte: `L'Editto di Rotari nasce dallo stesso bisogno che hai tu in cortile: avere regole <strong>uguali per tutti</strong>, che non cambino a seconda di chi comanda. Le leggi scritte proteggono soprattutto chi è più debole.`,
+      sceltaStoria: `Nel 643 il re longobardo Rotari fece la stessa scelta: invece di lasciar decidere il più forte, mise per iscritto le leggi nell'Editto di Rotari, uguali per tutto il popolo.`,
       competenza: "So riconoscere che le regole scritte e condivise valgono uguali per tutti."
     },
     {
@@ -364,10 +602,11 @@ const CAPITOLI = [
       domanda: `Come reagisci?`,
       opzioni: [
         { testo: "Ti vendichi subito: occhio per occhio.", best: false, fb: "È la faida che i Longobardi cercavano di fermare: a una vendetta ne segue un'altra, senza fine." },
-        { testo: "Chiedi che ripari il danno (te lo sostituisce o aggiusta) parlandone con un adulto.", best: true, fb: "Bravo: è esattamente il guidrigildo. Sostituire la vendetta con un risarcimento spezza la catena della violenza." },
+        { testo: "Chiedi che ripari il danno (te lo sostituisce o aggiusta) parlandone con un adulto.", best: true, fb: "È esattamente il guidrigildo. Sostituire la vendetta con un risarcimento spezza la catena della violenza." },
         { testo: "Fingi che non sia successo niente e tieni la rabbia dentro.", best: false, fb: "Capisco, ma il torto resta. Rotari capì che serviva un sistema giusto e visibile per riparare i danni, non il silenzio." }
       ],
       ponte: `Il <strong>guidrigildo</strong> insegna che a un torto si risponde meglio con la riparazione che con la vendetta. Trasformare la rabbia in una richiesta giusta — \"ripara il danno\" — è una conquista di civiltà che usi ancora oggi.`,
+      sceltaStoria: `I Longobardi scelsero di fermare la catena delle vendette (la faida): con il <strong>guidrigildo</strong> stabilirono che chi faceva un torto pagasse un risarcimento, invece di subire la vendetta.`,
       competenza: "So rispondere a un torto chiedendo riparazione invece di vendicarmi."
     },
     {
@@ -375,10 +614,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Lo tieni a distanza: è troppo diverso da voi.", best: false, fb: "I Longobardi provarono prima a dominare e basta, ma il regno restò fragile finché non si avvicinarono ai Romani." },
-        { testo: "Cerchi ciò che avete in comune e impari qualcosa dalle sue differenze.", best: true, fb: "Esatto: è ciò che rese stabile l'Italia longobarda, quando i due popoli si mescolarono e si arricchirono a vicenda." },
+        { testo: "Cerchi ciò che avete in comune e impari qualcosa dalle sue differenze.", best: true, fb: "È ciò che rese stabile l'Italia longobarda, quando i due popoli si mescolarono e si arricchirono a vicenda." },
         { testo: "Pretendi che faccia tutto come fai tu, altrimenti niente.", best: false, fb: "Imporre l'uniformità crea solo tensione. La convivenza vera nasce dall'incontro, non dall'imposizione." }
       ],
       ponte: `L'Italia romano-barbarica mostra che <strong>popoli diversi possono fondersi in qualcosa di nuovo e più ricco</strong>. Quando ti apri a chi è diverso, fai la stessa cosa che, nei secoli, ha costruito la nostra cultura.`,
+      sceltaStoria: `In Italia Longobardi e Romani scelsero, col tempo, di non restare separati: si mescolarono in leggi, lingua e fede, dando vita a una società nuova e più ricca.`,
       competenza: "So che dall'incontro tra persone diverse nasce qualcosa di più ricco."
     }
   ]
@@ -410,10 +650,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Lo lasci da parte: se non capisce è un problema suo.", best: false, fb: "Carlo Magno fece il contrario: investì sulla lingua e sul sapere per includere. Una comunità che esclude diventa più fragile." },
-        { testo: "Gli spieghi con parole semplici e lo aiuti a tradurre, così partecipa.", best: true, fb: "Bravo: è la logica carolingia. Saper comunicare serve a tenere unite persone diverse." },
+        { testo: "Gli spieghi con parole semplici e lo aiuti a tradurre, così partecipa.", best: true, fb: "È la logica carolingia. Saper comunicare serve a tenere unite persone diverse." },
         { testo: "Fai tu tutto il lavoro così non rallenta il gruppo.", best: false, fb: "Risolvi in fretta ma lui resta tagliato fuori. Carlo non lavorò al posto dei sudditi: diede loro le scuole per imparare." }
       ],
       ponte: `Carlo Magno scoprì che <strong>la lingua e la cultura uniscono più degli eserciti</strong>. Aiutare un compagno a capire e a esprimersi è ciò che facevano le scuole carolingie: trasformare persone diverse in una comunità.`,
+      sceltaStoria: `Carlo Magno scelse la cultura come collante dell'impero: aprì scuole presso corti e monasteri e chiamò studiosi come Alcuino, così persone diverse potevano capirsi e sentirsi una comunità.`,
       competenza: "So usare la comunicazione per includere chi fa fatica a partecipare."
     },
     {
@@ -421,10 +662,11 @@ const CAPITOLI = [
       domanda: `Come ti organizzi?`,
       opzioni: [
         { testo: "Controlli tutto tu, fidandoti di nessuno: alla fine rifai ogni cosa.", best: false, fb: "Impossibile per un impero come per un progetto grande. Carlo non poteva essere ovunque: inventò un sistema di controllo." },
-        { testo: "Stabilisci regole chiare e nomini qualcuno che verifichi i progressi di tutti.", best: true, fb: "Esatto: sono i capitolari e i missi dominici. Regole scritte più controlli affidabili tengono insieme anche organizzazioni enormi." },
+        { testo: "Stabilisci regole chiare e nomini qualcuno che verifichi i progressi di tutti.", best: true, fb: "Sono i capitolari e i missi dominici. Regole scritte più controlli affidabili tengono insieme anche organizzazioni enormi." },
         { testo: "Lasci che ognuno faccia come vuole senza verificare.", best: false, fb: "Senza controllo, l'impero di Carlo si sarebbe sfaldato. Le regole valgono solo se qualcuno verifica che siano rispettate." }
       ],
       ponte: `Carlo Magno governò un territorio immenso con <strong>regole chiare (i capitolari) e controlli affidabili (i missi dominici)</strong>. Lo stesso vale per ogni squadra: delegare con regole e verifiche fa funzionare le cose meglio del fare tutto da soli.`,
+      sceltaStoria: `Carlo Magno non governò tutto da solo: divise l'impero in contee, emanò leggi scritte (i <strong>capitolari</strong>) e mandò i <strong>missi dominici</strong> a controllare che fossero rispettate.`,
       competenza: "So organizzare un lavoro condiviso con regole chiare e controlli."
     },
     {
@@ -432,10 +674,11 @@ const CAPITOLI = [
       domanda: `Cosa ne fai?`,
       opzioni: [
         { testo: "Li ignori: il passato non serve, faccio tutto da capo io.", best: false, fb: "La rinascita carolingia nacque proprio dal recupero dei libri antichi. Buttare via il sapere del passato significa ripartire da zero ogni volta." },
-        { testo: "Li conservi, li studi e li condividi con i compagni.", best: true, fb: "Perfetto: è ciò che fecero i monaci copisti. Salvare e trasmettere il sapere è ciò che fa progredire una comunità." },
+        { testo: "Li conservi, li studi e li condividi con i compagni.", best: true, fb: "È ciò che fecero i monaci copisti. Salvare e trasmettere il sapere è ciò che fa progredire una comunità." },
         { testo: "Li tieni solo per te, in segreto.", best: false, fb: "Carlo fece copiare i libri per diffonderli, non per nasconderli. Il sapere cresce quando si condivide." }
       ],
       ponte: `La <strong>rinascita carolingia</strong> salvò gran parte della cultura antica grazie ai monaci che copiavano i libri. Conservare e condividere ciò che gli altri hanno imparato prima di te è un gesto piccolo con un effetto enorme: non si riparte mai da zero.`,
+      sceltaStoria: `Davanti al rischio che i testi antichi andassero perduti, scelse di salvarli: nei monasteri i monaci copiarono a mano migliaia di libri, tramandando il sapere alle generazioni dopo.`,
       competenza: "So conservare e condividere il sapere di chi mi ha preceduto."
     }
   ]
@@ -467,10 +710,11 @@ const CAPITOLI = [
       domanda: `Cosa decidi?`,
       opzioni: [
         { testo: "Vai alla festa e inventi una scusa: lui capirà.", best: false, fb: "Nel mondo feudale chi rompeva il giuramento perdeva la fiducia di tutti. Una scusa salva la serata, ma incrina il patto." },
-        { testo: "Mantieni la promessa e vai al torneo: l'avevi data.", best: true, fb: "Esatto: è il cuore del patto feudale. La fiducia si costruisce mantenendo la parola, soprattutto quando costa." },
+        { testo: "Mantieni la promessa e vai al torneo: l'avevi data.", best: true, fb: "È il cuore del patto feudale. La fiducia si costruisce mantenendo la parola, soprattutto quando costa." },
         { testo: "Gli chiedi apertamente di liberarti dalla promessa, spiegando la situazione.", best: true, fb: "Scelta matura: anche un patto feudale poteva sciogliersi, ma alla luce del sole e d'accordo, non con un tradimento nascosto." }
       ],
       ponte: `Il feudalesimo insegna che <strong>la fiducia è una moneta che si costruisce mantenendo i patti</strong>. Ogni promessa mantenuta — anche scomoda — insegna agli altri che possono contare su di te.`,
+      sceltaStoria: `Il legame feudale si reggeva su una promessa solenne: con l'omaggio e il giuramento di fedeltà, vassallo e signore scelsero di tener fede ai patti, in cambio di protezione e terre.`,
       competenza: "So mantenere la parola data e gestire le promesse con onestà."
     },
     {
@@ -478,10 +722,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Tiri dritto: non sono affari tuoi.", best: false, fb: "Il codice cavalleresco nasce proprio contro questo: la forza che non protegge i deboli è solo prepotenza." },
-        { testo: "Intervieni o chiami un adulto per difendere il più piccolo.", best: true, fb: "Bravo: è l'ideale della cavalleria. Usare la propria forza o voce per proteggere chi è indifeso è vero coraggio." },
+        { testo: "Intervieni o chiami un adulto per difendere il più piccolo.", best: true, fb: "È l'ideale della cavalleria. Usare la propria forza o voce per proteggere chi è indifeso è vero coraggio." },
         { testo: "Ti unisci ai più grandi per non rischiare.", best: false, fb: "È il contrario dell'onore cavalleresco. Schierarsi col più forte contro il più debole è ciò che la cavalleria condannava." }
       ],
       ponte: `Il <strong>codice cavalleresco</strong> diceva che la vera forza si misura nel proteggere i più deboli, non nel dominarli. Difendere chi non può difendersi da solo è un ideale antico mille anni che vale ancora oggi nel tuo cortile.`,
+      sceltaStoria: `La cavalleria scelse di darsi un codice: il vero cavaliere doveva usare la forza per difendere i deboli, le vedove e gli inermi, non per opprimerli.`,
       competenza: "So usare la mia forza o la mia voce per proteggere chi è più debole."
     },
     {
@@ -489,10 +734,11 @@ const CAPITOLI = [
       domanda: `Cosa pensi?`,
       opzioni: [
         { testo: "È vero: c'è chi è portato e chi no, è destino.", best: false, fb: "È la mentalità feudale dei \"tre ordini\" fissi: ognuno al suo posto per sempre. Una società così blocca il talento delle persone." },
-        { testo: "Nessuno è condannato dal punto di partenza: con impegno e aiuto si può crescere.", best: true, fb: "Esatto: è la grande differenza tra il mondo feudale e il nostro. Oggi crediamo che la posizione non sia fissata dalla nascita." },
+        { testo: "Nessuno è condannato dal punto di partenza: con impegno e aiuto si può crescere.", best: true, fb: "È la grande differenza tra il mondo feudale e il nostro. Oggi crediamo che la posizione non sia fissata dalla nascita." },
         { testo: "Dipende solo dalla fortuna, non serve impegnarsi.", best: false, fb: "Né destino né pura fortuna: il bello del superare la società feudale è proprio che l'impegno può cambiare le cose." }
       ],
       ponte: `La società feudale dei <strong>tre ordini</strong> immaginava il posto di ognuno fissato per sempre dalla nascita. Sapere che oggi <strong>non è più così</strong> — che ci si può impegnare e crescere — è una libertà conquistata di cui non sempre ci accorgiamo.`,
+      sceltaStoria: `La società feudale scelse di fissare il posto di ognuno dalla nascita, nei tre ordini (chi prega, chi combatte, chi lavora): una scelta che oggi abbiamo superato, perché ci si può impegnare e cambiare.`,
       competenza: "So che il mio valore non è fissato dalla partenza, ma cresce con l'impegno."
     }
   ]
@@ -524,10 +770,11 @@ const CAPITOLI = [
       domanda: `Come ti comporti?`,
       opzioni: [
         { testo: "Approfitti della confusione per fare come ti pare.", best: false, fb: "È la tentazione di chi sta tra due poteri in conflitto. Funziona un giorno, ma quando se ne accorgono finisce peggio." },
-        { testo: "Fai parlare i tuoi tra loro perché si mettano d'accordo su chi decide cosa.", best: true, fb: "Perfetto: è il Concordato di Worms. Il conflitto si risolve chiarendo con regole precise chi ha autorità su quale ambito." },
+        { testo: "Fai parlare i tuoi tra loro perché si mettano d'accordo su chi decide cosa.", best: true, fb: "È il Concordato di Worms. Il conflitto si risolve chiarendo con regole precise chi ha autorità su quale ambito." },
         { testo: "Obbedisci a caso, tanto è colpa loro.", best: false, fb: "La frustrazione è comprensibile, ma il problema resta. I poteri in conflitto trovano pace solo definendo confini chiari." }
       ],
       ponte: `La lotta tra papato e impero insegna che <strong>i conflitti si risolvono stabilendo chi decide su cosa</strong>. Quando due autorità si sovrappongono, serve un accordo che tracci i confini — a Worms come a casa tua.`,
+      sceltaStoria: `Dopo decenni di scontro per le investiture, papato e impero scelsero l'accordo: col <strong>Concordato di Worms</strong> (1122) stabilirono chi nominava i vescovi nel potere spirituale e chi in quello temporale.`,
       competenza: "So che i conflitti si risolvono chiarendo chi ha responsabilità su cosa."
     },
     {
@@ -535,10 +782,11 @@ const CAPITOLI = [
       domanda: `Cosa scegli di fare?`,
       opzioni: [
         { testo: "Aspetti che sia lui a cedere per primo: tu non ti abbassi.", best: false, fb: "Anche Enrico IV resistette a lungo per orgoglio, ma più aspettava più perdeva. A volte l'orgoglio costa caro." },
-        { testo: "Fai tu il primo passo e chiedi scusa, anche se ti costa.", best: true, fb: "Bravo: come Enrico a Canossa, riconoscere lo sbaglio e fare il primo passo non è debolezza, è ciò che riapre il dialogo." },
+        { testo: "Fai tu il primo passo e chiedi scusa, anche se ti costa.", best: true, fb: "Come Enrico a Canossa, riconoscere lo sbaglio e fare il primo passo non è debolezza, è ciò che riapre il dialogo." },
         { testo: "Tagli i ponti: meglio perdere l'amico che chiedere scusa.", best: false, fb: "È la scelta più cara di tutte. Canossa, per quanto umiliante, riaprì una strada: rompere tutto la chiude per sempre." }
       ],
       ponte: `L'umiliazione di <strong>Canossa</strong> ci ricorda che fare il primo passo dopo uno sbaglio costa orgoglio, ma riapre il dialogo. Chiedere scusa non ti rende più piccolo: ti restituisce un rapporto.`,
+      sceltaStoria: `L'imperatore Enrico IV, scomunicato, scelse di fare il primo passo: nel 1077 andò a <strong>Canossa</strong> e attese tre giorni nella neve per chiedere perdono al papa Gregorio VII.`,
       competenza: "So fare il primo passo e riconoscere i miei errori per ricucire un rapporto."
     },
     {
@@ -546,10 +794,11 @@ const CAPITOLI = [
       domanda: `Cosa proponi?`,
       opzioni: [
         { testo: "Niente: che si arrangino loro, tu segui chi capita.", best: false, fb: "La confusione tra autorità paralizza tutto, come accadde tra papa e imperatore prima di Worms." },
-        { testo: "Proponi di chiarire insieme: di cosa si occupa l'allenatore e di cosa il capitano.", best: true, fb: "Esatto: dividere gli ambiti di competenza è ciò che fece il Concordato. Ognuno sa cosa decide e la squadra funziona." },
+        { testo: "Proponi di chiarire insieme: di cosa si occupa l'allenatore e di cosa il capitano.", best: true, fb: "Dividere gli ambiti di competenza è ciò che fece il Concordato. Ognuno sa cosa decide e la squadra funziona." },
         { testo: "Decidi tu al posto di entrambi.", best: false, fb: "Aggiungeresti un terzo potere alla confusione. La soluzione non è comandare di più, ma definire i ruoli." }
       ],
       ponte: `Il <strong>Concordato di Worms</strong> non eliminò il papa né l'imperatore: assegnò a ciascuno il suo campo. In ogni gruppo, definire \"chi si occupa di cosa\" trasforma il caos in collaborazione.`,
+      sceltaStoria: `Col Concordato di Worms né papa né imperatore vennero eliminati: si scelse di assegnare a ciascuno il proprio campo, mettendo fine alla confusione dei ruoli.`,
       competenza: "So distinguere i ruoli in un gruppo per evitare confusione e conflitti."
     }
   ]
@@ -581,10 +830,11 @@ const CAPITOLI = [
       domanda: `Cosa provi a fare?`,
       opzioni: [
         { testo: "Niente, tanto la mattina è così per tutti.", best: false, fb: "È ciò che pensavano i contadini prima della rotazione triennale: si è sempre fatto così. Poi una piccola idea cambiò tutto." },
-        { testo: "Prepari zaino e vestiti la sera prima e stabilisci dei turni per il bagno.", best: true, fb: "Esatto: è il pensiero dell'innovatore. Una piccola riorganizzazione libera tempo ed energie senza lavorare di più." },
+        { testo: "Prepari zaino e vestiti la sera prima e stabilisci dei turni per il bagno.", best: true, fb: "È il pensiero dell'innovatore. Una piccola riorganizzazione libera tempo ed energie senza lavorare di più." },
         { testo: "Ti svegli un'ora prima e basta.", best: false, fb: "Più fatica, stesso caos. Le grandi rinascite non nacquero lavorando di più, ma lavorando meglio." }
       ],
       ponte: `La rinascita dell'anno Mille dimostra che <strong>una piccola innovazione intelligente vale più della fatica cieca</strong>. Riorganizzare la mattina è lo stesso principio che, con la rotazione dei campi, fece crescere la popolazione europea.`,
+      sceltaStoria: `Intorno all'anno Mille i contadini non lavorarono solo di più: scelsero idee nuove come la <strong>rotazione triennale</strong> dei campi, e i raccolti — e la popolazione — crebbero.`,
       competenza: "So che una piccola idea organizzativa vale più della fatica cieca."
     },
     {
@@ -592,10 +842,11 @@ const CAPITOLI = [
       domanda: `Come reagisci?`,
       opzioni: [
         { testo: "Continui come hai sempre fatto: il metodo nuovo non ti convince.", best: false, fb: "È la diffidenza verso le novità che frenava il progresso. Il mulino sembrava strano, eppure liberò milioni di ore di lavoro." },
-        { testo: "Provi il metodo nuovo: se ti fa risparmiare tempo, lo adotti.", best: true, fb: "Bravo: è lo spirito di chi adottò mulini e nuovi attrezzi. Gli strumenti giusti liberano tempo per fare altro." },
+        { testo: "Provi il metodo nuovo: se ti fa risparmiare tempo, lo adotti.", best: true, fb: "È lo spirito di chi adottò mulini e nuovi attrezzi. Gli strumenti giusti liberano tempo per fare altro." },
         { testo: "Lo provi ma poi torni al vecchio metodo per abitudine.", best: false, fb: "L'abitudine è comoda, ma chi adottò davvero le innovazioni fece un balzo avanti. Dai una vera chance agli strumenti migliori." }
       ],
       ponte: `I <strong>mulini</strong> mostrarono che una macchina può fare al posto nostro il lavoro più pesante e ripetitivo, liberando tempo ed energie. Imparare a usare gli strumenti giusti — ieri il mulino, oggi un metodo o un'app — ti rende più libero.`,
+      sceltaStoria: `Per il lavoro più pesante scelsero le macchine: <strong>mulini</strong> ad acqua e a vento, aratro pesante e collare rigido fecero il lavoro al posto delle braccia, liberando tempo ed energie.`,
       competenza: "So adottare strumenti e tecniche nuove per liberare tempo ed energie."
     },
     {
@@ -603,10 +854,11 @@ const CAPITOLI = [
       domanda: `Cosa scegli?`,
       opzioni: [
         { testo: "Tieni il segreto: così resti l'unico indispensabile.", best: false, fb: "Le città medievali fiorirono quando le idee circolavano nelle fiere e nei mercati, non quando restavano chiuse." },
-        { testo: "Condividi e scambi ciò che sai: tutti crescono, anche tu.", best: true, fb: "Esatto: è la logica dei commerci che fecero rinascere le città. Lo scambio fa crescere l'intera comunità, te compreso." },
+        { testo: "Condividi e scambi ciò che sai: tutti crescono, anche tu.", best: true, fb: "È la logica dei commerci che fecero rinascere le città. Lo scambio fa crescere l'intera comunità, te compreso." },
         { testo: "Lo insegni solo a chi ti paga qualcosa in cambio.", best: false, fb: "Lo scambio va bene, ma le grandi rinascite nacquero dalla circolazione aperta delle idee, non dal chiuderle a chiave." }
       ],
       ponte: `La rinascita delle <strong>città e dei commerci</strong> nacque dallo scambio: merci, ma soprattutto idee e tecniche che passavano di mano in mano nelle fiere. Condividere ciò che sai fa crescere tutta la comunità, e alla fine anche te.`,
+      sceltaStoria: `Le città rinacquero scegliendo lo scambio: nelle fiere e nei mercati passavano di mano merci ma soprattutto idee e tecniche, e tutta la comunità cresceva.`,
       competenza: "So che condividere idee e competenze fa crescere tutta la comunità."
     }
   ]
@@ -638,10 +890,11 @@ const CAPITOLI = [
       domanda: `Tu come voti?`,
       opzioni: [
         { testo: "Voti il più simpatico, senza pensarci.", best: false, fb: "I Comuni scoprirono che scegliere per simpatia portava guai. Il rappresentante deve saper difendere gli interessi di tutti." },
-        { testo: "Pensi a chi saprà ascoltare la classe e parlare con i prof, e voti quello.", best: true, fb: "Perfetto: è lo spirito del Comune. Il voto è uno strumento serio per scegliere chi rappresenta gli interessi di tutti." },
+        { testo: "Pensi a chi saprà ascoltare la classe e parlare con i prof, e voti quello.", best: true, fb: "È lo spirito del Comune. Il voto è uno strumento serio per scegliere chi rappresenta gli interessi di tutti." },
         { testo: "Non voti: tanto non cambia niente.", best: false, fb: "I cittadini dei Comuni hanno lottato per ottenere il voto. Rinunciarci significa lasciare che decidano gli altri al posto tuo." }
       ],
       ponte: `Quando voti il rappresentante usi una conquista vecchia di <strong>800 anni</strong>. I Comuni hanno inventato l'idea che il potere venga dal voto dei cittadini, non dalla nascita o dalla forza. Il tuo voto conta.`,
+      sceltaStoria: `I cittadini dei <strong>Comuni</strong> scelsero di non farsi più comandare per nascita o per forza: si diedero governi eletti, dove le cariche venivano scelte col voto dei cittadini.`,
       competenza: "So usare il voto come strumento serio per scegliere chi mi rappresenta."
     },
     {
@@ -649,10 +902,11 @@ const CAPITOLI = [
       domanda: `Cosa ne pensi?`,
       opzioni: [
         { testo: "Mai: deve comandare uno di noi, anche se litiga con tutti.", best: false, fb: "È esattamente il problema che i Comuni risolsero col podestà: quando le parti interne si scontrano, serve un arbitro super partes." },
-        { testo: "Buona idea: una persona esterna e imparziale può fare da arbitro giusto.", best: true, fb: "Esatto: è l'invenzione del podestà. Una figura neutrale, scelta a tempo, riduce i conflitti tra le fazioni." },
+        { testo: "Buona idea: una persona esterna e imparziale può fare da arbitro giusto.", best: true, fb: "È l'invenzione del podestà. Una figura neutrale, scelta a tempo, riduce i conflitti tra le fazioni." },
         { testo: "Meglio nessuna guida: si fa alla rinfusa.", best: false, fb: "Senza una guida riconosciuta i conflitti esplodono. I Comuni capirono che serviva un arbitro accettato da tutti." }
       ],
       ponte: `L'invenzione del <strong>podestà</strong> insegna che, quando le parti in causa litigano, una figura <strong>imparziale e a tempo</strong> può fare da arbitro giusto. È il principio degli arbitri e dei giudici di oggi: chi decide non deve essere parte del conflitto.`,
+      sceltaStoria: `Per fermare le lotte tra fazioni, i Comuni scelsero il <strong>podestà</strong>: un governatore forestiero e imparziale, in carica per un tempo limitato, che faceva da arbitro.`,
       competenza: "So che in un conflitto serve un arbitro imparziale per decidere con giustizia."
     },
     {
@@ -660,10 +914,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Lasci decidere ai soliti: sono i più bravi a parlare.", best: false, fb: "È il \"popolo grasso\" che comandava da solo. Ma escludere gli altri creava tensioni e ingiustizie nei Comuni." },
-        { testo: "Proponi un modo perché anche i più timidi possano dire la loro.", best: true, fb: "Bravo: è la lotta del \"popolo minuto\" per partecipare. Una comunità è più giusta quando tutti possono contare, non solo i più forti." },
+        { testo: "Proponi un modo perché anche i più timidi possano dire la loro.", best: true, fb: "È la lotta del \"popolo minuto\" per partecipare. Una comunità è più giusta quando tutti possono contare, non solo i più forti." },
         { testo: "Ti tieni in disparte: non sono problemi tuoi.", best: false, fb: "Anche chi tace lascia che decidano sempre gli stessi. La partecipazione nei Comuni si conquistò facendosi sentire." }
       ],
       ponte: `Nei Comuni il <strong>popolo minuto</strong> lottò per non lasciare il potere solo ai più ricchi e forti. Fare in modo che <strong>anche i più deboli abbiano voce</strong> è ciò che rende un gruppo davvero giusto, ieri come oggi.`,
+      sceltaStoria: `Il <strong>popolo minuto</strong> non accettò che decidessero solo i più ricchi: lottò e ottenne propri rappresentanti (come i Capitani del popolo), perché anche i più deboli avessero voce.`,
       competenza: "So far sì che anche chi è più timido o debole abbia voce nelle decisioni."
     }
   ]
@@ -694,10 +949,11 @@ const CAPITOLI = [
       domanda: `Cosa fate?`,
       opzioni: [
         { testo: "Vi arrendete prima di cominciare: sono troppo forti.", best: false, fb: "È ciò che speravano i potenti contro i Comuni isolati. Ma Legnano dimostra che la partita non è decisa in partenza." },
-        { testo: "Vi organizzate come squadra, vi coprite a vicenda e giocate uniti.", best: true, fb: "Esatto: è la lezione della Lega Lombarda. Tanti \"deboli\" coordinati possono battere un avversario forte ma disunito." },
+        { testo: "Vi organizzate come squadra, vi coprite a vicenda e giocate uniti.", best: true, fb: "È la lezione della Lega Lombarda. Tanti \"deboli\" coordinati possono battere un avversario forte ma disunito." },
         { testo: "Ognuno gioca per sé cercando di fare bella figura.", best: false, fb: "Così vincono i più forti. I Comuni capirono che divisi perdevano: solo uniti nella Lega vinsero." }
       ],
       ponte: `Legnano insegna che <strong>l'unione di tanti più deboli può bilanciare un singolo più forte</strong>. Non conta solo quanto vali da solo, ma quanto sapete coordinarvi insieme.`,
+      sceltaStoria: `A <strong>Legnano</strong> (1176) i Comuni non affrontarono l'imperatore uno per uno: scelsero di unirsi e coordinarsi, e la loro fanteria unita batté la cavalleria di Federico Barbarossa.`,
       competenza: "So che l'unione coordinata di molti può superare un singolo più forte."
     },
     {
@@ -705,10 +961,11 @@ const CAPITOLI = [
       domanda: `Cosa suggerisci ai due litiganti?`,
       opzioni: [
         { testo: "Che continuino a litigare: i loro problemi vengono prima.", best: false, fb: "I Comuni della Lega erano rivali, ma capirono che davanti a un pericolo comune le vecchie liti dovevano aspettare." },
-        { testo: "Che mettano da parte la lite e si difendano insieme dal pericolo comune.", best: true, fb: "Esatto: è il patto della Lega Lombarda. Riconoscere il nemico comune permette anche ai rivali di allearsi." },
+        { testo: "Che mettano da parte la lite e si difendano insieme dal pericolo comune.", best: true, fb: "È il patto della Lega Lombarda. Riconoscere il nemico comune permette anche ai rivali di allearsi." },
         { testo: "Che ognuno si arrangi da solo come può.", best: false, fb: "Divisi sono indifesi. La forza della Lega stava proprio nel superare le rivalità interne di fronte alla minaccia." }
       ],
       ponte: `La <strong>Lega Lombarda</strong> univa città che fino al giorno prima erano rivali. Saper <strong>mettere da parte le vecchie liti davanti a un pericolo comune</strong> è una forma di intelligenza che salva tutti.`,
+      sceltaStoria: `Le città lombarde, fino a ieri rivali tra loro, scelsero di allearsi nella <strong>Lega Lombarda</strong> davanti al pericolo comune rappresentato dall'imperatore.`,
       competenza: "So mettere da parte i contrasti per affrontare insieme un problema comune."
     },
     {
@@ -716,10 +973,11 @@ const CAPITOLI = [
       domanda: `Cosa scegliete?`,
       opzioni: [
         { testo: "Li umiliate: avete vinto, è il vostro momento.", best: false, fb: "Dopo Legnano i Comuni non distrussero l'imperatore: cercarono un accordo. Umiliare il nemico semina solo nuove vendette." },
-        { testo: "Cercate un accordo che riconosca i vostri diritti e regoli i rapporti futuri.", best: true, fb: "Esatto: è la pace di Costanza. Dopo una vittoria, la cosa più saggia è trasformarla in regole stabili, non in vendetta." },
+        { testo: "Cercate un accordo che riconosca i vostri diritti e regoli i rapporti futuri.", best: true, fb: "È la pace di Costanza. Dopo una vittoria, la cosa più saggia è trasformarla in regole stabili, non in vendetta." },
         { testo: "Pretendete tutto e subito, senza compromessi.", best: false, fb: "I Comuni avrebbero potuto, ma scelsero un accordo equilibrato che durò. Pretendere tutto riaccende solo i conflitti." }
       ],
       ponte: `Dopo la vittoria di Legnano, la <strong>pace di Costanza</strong> trasformò il successo in diritti riconosciuti e duraturi. Una vittoria vale davvero quando diventa un <strong>accordo giusto</strong>, non un'umiliazione dell'avversario.`,
+      sceltaStoria: `Dopo aver vinto a Legnano, i Comuni non umiliarono l'imperatore: con la <strong>pace di Costanza</strong> (1183) trasformarono la vittoria in diritti riconosciuti e duraturi.`,
       competenza: "So trasformare una vittoria in un accordo giusto invece che in vendetta."
     }
   ]
@@ -751,10 +1009,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Lo segui: se lo dice lui e parla del bene del gruppo, sarà giusto.", best: false, fb: "Attenzione: come per le crociate, la motivazione dichiarata può nascondere quella vera. Forse vuole solo togliere un rivale." },
-        { testo: "Ti chiedi: qual è la vera ragione? Chi ci guadagna da questa esclusione?", best: true, fb: "Perfetto: stai lavorando come uno storico. Distinguere motivazione dichiarata e reale è la chiave per non farti manipolare." },
+        { testo: "Ti chiedi: qual è la vera ragione? Chi ci guadagna da questa esclusione?", best: true, fb: "È il metodo dello storico: distinguere la motivazione dichiarata da quella reale è la chiave per non farsi manipolare." },
         { testo: "Non ti interessa, l'importante è stare con i più forti.", best: false, fb: "Lo storico ci insegna a verificare le versioni comode. Stare coi forti senza domande significa farsi usare." }
       ],
       ponte: `Lo storico chiede sempre <strong>\"chi ci guadagna davvero?\"</strong>. È la stessa domanda che ti protegge quando qualcuno usa parole nobili per convincerti a fare qualcosa di ingiusto.`,
+      sceltaStoria: `Le crociate furono bandite con la motivazione religiosa di liberare la Terrasanta, ma dietro c'erano anche interessi concreti: terre, ricchezze e nuove rotte commerciali.`,
       competenza: "So distinguere le ragioni dichiarate da quelle reali dietro a un'azione."
     },
     {
@@ -762,10 +1021,11 @@ const CAPITOLI = [
       domanda: `Come ti comporti da bravo storico?`,
       opzioni: [
         { testo: "Giudichi subito basandoti sull'unica versione che hai sentito.", best: false, fb: "Lo storico non si fida di una sola fonte: rischi di prendere per vera la versione di una parte sola." },
-        { testo: "Cerchi più fonti e anche la versione dell'altra parte prima di giudicare.", best: true, fb: "Esatto: è il metodo dello storico. Confrontare più fonti diverse permette di avvicinarsi alla verità." },
+        { testo: "Cerchi più fonti e anche la versione dell'altra parte prima di giudicare.", best: true, fb: "È il metodo dello storico. Confrontare più fonti diverse permette di avvicinarsi alla verità." },
         { testo: "Decidi in base a chi ti sta più simpatico.", best: false, fb: "La simpatia non è una fonte. Lo storico giudica sui documenti e sui fatti, non sulle preferenze personali." }
       ],
       ponte: `Lo storico ricostruisce il passato confrontando più <strong>fonti</strong>, anche quelle scomode. Prima di giudicare un fatto — del Medioevo o di una lite in classe — cercare <strong>più versioni</strong> ti rende più giusto e più difficile da ingannare.`,
+      sceltaStoria: `Per ricostruire le crociate gli storici scelgono di confrontare più <strong>fonti</strong> — cristiane e musulmane — invece di fidarsi di una sola versione.`,
       competenza: "So cercare e confrontare più fonti prima di farmi un'idea su un fatto."
     },
     {
@@ -773,10 +1033,11 @@ const CAPITOLI = [
       domanda: `Come ti comporti?`,
       opzioni: [
         { testo: "Ti fidi dei luoghi comuni e lo tieni a distanza.", best: false, fb: "Le crociate alimentarono pregiudizi reciproci e violenze. Giudicare per sentito dire crea solo muri." },
-        { testo: "Lo conosci davvero e scopri cosa potete imparare l'uno dall'altro.", best: true, fb: "Bravo: anche dalle crociate, pur tra le violenze, passarono scambi di conoscenze e merci. L'incontro vero supera il pregiudizio." },
+        { testo: "Lo conosci davvero e scopri cosa potete imparare l'uno dall'altro.", best: true, fb: "Anche dalle crociate, pur tra le violenze, passarono scambi di conoscenze e merci. L'incontro vero supera il pregiudizio." },
         { testo: "Lo eviti per non avere problemi.", best: false, fb: "Evitare l'altro lascia intatti i pregiudizi. Conoscere di persona è l'unico modo per smontare i luoghi comuni." }
       ],
       ponte: `Le crociate furono scontro, ma anche <strong>contatto</strong>: dall'Oriente arrivarono numeri, merci e saperi. Conoscere davvero chi è diverso, invece di fidarsi dei luoghi comuni, trasforma uno scontro in uno scambio.`,
+      sceltaStoria: `Le crociate furono scontro, ma anche <strong>contatto</strong>: dall'Oriente l'Europa accolse numeri, carta, medicine e nuove merci, scoprendo il valore di chi era diverso.`,
       competenza: "So superare i pregiudizi conoscendo davvero le persone diverse da me."
     }
   ]
@@ -808,10 +1069,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Ricondividi anche tu: se lo dicono tutti, qualcosa di vero ci sarà.", best: false, fb: "È la caccia all'untore del Trecento. La folla impaurita accusava innocenti senza prove. Ricondividere alimenta l'ingiustizia." },
-        { testo: "Chiedi le prove e inviti a non accusare nessuno finché non si sa la verità.", best: true, fb: "Bravo: è la lezione delle città che si salvarono. Contro la paura servono prove e ragionamento, non capri espiatori." },
+        { testo: "Chiedi le prove e inviti a non accusare nessuno finché non si sa la verità.", best: true, fb: "È la lezione delle città che si salvarono. Contro la paura servono prove e ragionamento, non capri espiatori." },
         { testo: "Non dici niente per non metterti contro il gruppo.", best: false, fb: "Il silenzio lascia correre l'ingiustizia. A volte difendere la verità chiede coraggio." }
       ],
       ponte: `La peste insegna che <strong>nei momenti di paura la tentazione è cercare un colpevole, non la verità</strong>. Lo abbiamo rivisto anche durante la pandemia di COVID. Davanti a un'accusa senza prove, scegli la quarantena della ragione.`,
+      sceltaStoria: `Mentre la peste avanzava, in molte città si diffuse l'accusa che alcuni — i cosiddetti "untori" e spesso gli ebrei — diffondessero il contagio di proposito, e furono perseguitati senza prove.`,
       competenza: "So resistere alla caccia al colpevole e chiedere prove davanti alla paura."
     },
     {
@@ -819,10 +1081,11 @@ const CAPITOLI = [
       domanda: `Come ti comporti?`,
       opzioni: [
         { testo: "Ti fai prendere dal panico anche tu e corri urlando.", best: false, fb: "Il panico nel Trecento moltiplicò i danni della peste. La paura senza testa fa più male del pericolo stesso." },
-        { testo: "Mantieni la calma, segui le istruzioni e aiuti a non diffondere voci.", best: true, fb: "Esatto: è la risposta delle città che si salvarono con la quarantena. La calma e le misure giuste salvano più della paura." },
+        { testo: "Mantieni la calma, segui le istruzioni e aiuti a non diffondere voci.", best: true, fb: "È la risposta delle città che si salvarono con la quarantena. La calma e le misure giuste salvano più della paura." },
         { testo: "Aspetti senza fare niente, paralizzato.", best: false, fb: "Meglio del panico, ma serve agire con metodo: seguire le indicazioni e aiutare a tenere la calma fa la differenza." }
       ],
       ponte: `Le città che inventarono la <strong>quarantena</strong> sconfissero la peste non con la paura, ma con misure ragionate e calma. Nelle emergenze, <strong>tenere la testa fredda e seguire le regole giuste</strong> salva più dell'agitazione.`,
+      sceltaStoria: `Alcune città non si affidarono al panico: scelsero misure ragionate come la <strong>quarantena</strong>, isolando i sospetti malati per quaranta giorni, e così frenarono il contagio.`,
       competenza: "So mantenere la calma e agire con metodo in una situazione di emergenza."
     },
     {
@@ -830,10 +1093,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Ti accodi: in fondo \"quelli come lui\" portano sempre guai.", best: false, fb: "È esattamente ciò che accadde agli ebrei e alle minoranze durante la peste: accusati ingiustamente solo per ciò che erano." },
-        { testo: "Difendi il principio che si giudica per i fatti, non per il gruppo di appartenenza.", best: true, fb: "Bravo: hai fermato la logica del capro espiatorio. Nessuno è colpevole per ciò che è, ma solo per ciò che fa." },
+        { testo: "Difendi il principio che si giudica per i fatti, non per il gruppo di appartenenza.", best: true, fb: "È la logica del capro espiatorio che si interrompe: nessuno è colpevole per ciò che è, ma solo per ciò che fa." },
         { testo: "Non ti esponi: tanto è solo uno scherzo.", best: false, fb: "Non è uno scherzo: è il seme dell'ingiustizia. Chi tace lascia che la colpa cada su un innocente." }
       ],
       ponte: `Durante la peste le minoranze furono accusate solo per ciò che <strong>erano</strong>, non per ciò che avevano fatto. Difendere il principio che <strong>si giudica per i fatti e non per l'appartenenza</strong> è un argine contro l'ingiustizia di ieri e di oggi.`,
+      sceltaStoria: `Durante la peste, in diverse città le minoranze — soprattutto gli ebrei — furono accusate e colpite per ciò che <strong>erano</strong>, non per fatti dimostrati.`,
       competenza: "So difendere chi viene accusato solo per la sua appartenenza e non per i fatti."
     }
   ]
@@ -865,10 +1129,11 @@ const CAPITOLI = [
       domanda: `Cosa pensi sia giusto?`,
       opzioni: [
         { testo: "Chi può evitare di pagare fa bene: sono soldi risparmiati.", best: false, fb: "Se tutti ragionassero così, il pullman non partirebbe. Senza il contributo di tutti, i beni comuni crollano." },
-        { testo: "Ognuno paga la sua quota: il pullman è un bene di tutti e si paga insieme.", best: true, fb: "Esatto: è il principio delle tasse regolari. Un bene che serve a tutti si paga col contributo di tutti." },
+        { testo: "Ognuno paga la sua quota: il pullman è un bene di tutti e si paga insieme.", best: true, fb: "È il principio delle tasse regolari. Un bene che serve a tutti si paga col contributo di tutti." },
         { testo: "Pagano solo i più ricchi della classe, gli altri niente.", best: false, fb: "Sembra solidale, ma scarica il peso su pochi. Le monarchie cercarono un sistema equo, con regole comuni." }
       ],
       ponte: `La quota del pullman è una piccola tassa. Le monarchie nazionali hanno costruito l'idea che <strong>i beni che servono a tutti si pagano col contributo di tutti</strong>. Quando paghi la tua parte fai funzionare qualcosa che è anche tuo.`,
+      sceltaStoria: `I re delle monarchie nazionali scelsero di far contribuire tutti: introdussero <strong>tasse</strong> regolari, perché un esercito e uno Stato che servono a tutti si pagano col contributo di tutti.`,
       competenza: "So che i beni comuni si sostengono con il contributo equo di tutti."
     },
     {
@@ -876,10 +1141,11 @@ const CAPITOLI = [
       domanda: `Cosa proponi?`,
       opzioni: [
         { testo: "Niente: ognuno faccia come gli pare, è più libero.", best: false, fb: "È il disordine che le monarchie superarono con leggi comuni. Senza regole condivise, vince il più prepotente." },
-        { testo: "Stabilite poche regole chiare e uguali per tutti.", best: true, fb: "Esatto: è ciò che fecero i re con le leggi nazionali. Regole comuni riducono i conflitti e rendono tutti più liberi davvero." },
+        { testo: "Stabilite poche regole chiare e uguali per tutti.", best: true, fb: "È ciò che fecero i re con le leggi nazionali. Regole comuni riducono i conflitti e rendono tutti più liberi davvero." },
         { testo: "Decide tutto solo il più forte, caso per caso.", best: false, fb: "È il potere arbitrario che le leggi comuni vennero a sostituire. Le regole uguali per tutti proteggono meglio del comando del più forte." }
       ],
       ponte: `Le monarchie nazionali portarono <strong>leggi comuni e uguali</strong> su tutto il territorio, riducendo il caos e gli arbìtri locali. Regole chiare e valide per tutti non tolgono libertà: la proteggono.`,
+      sceltaStoria: `Le monarchie scelsero <strong>leggi uguali</strong> su tutto il territorio e funzionari del re, riducendo il caos dei mille poteri locali e degli arbìtri dei signori.`,
       competenza: "So che regole comuni e uguali per tutti riducono i conflitti e proteggono la libertà."
     },
     {
@@ -887,10 +1153,11 @@ const CAPITOLI = [
       domanda: `Cosa decidi?`,
       opzioni: [
         { testo: "Continui a dipendere dagli altri: è più comodo.", best: false, fb: "I re capirono che dipendere dai cavalieri dei nobili li rendeva deboli. La dipendenza continua toglie forza." },
-        { testo: "Vi attrezzate per gestire da soli ciò che potete.", best: true, fb: "Esatto: come i re che crearono eserciti propri, diventare autonomi vi rende più forti e capaci." },
+        { testo: "Vi attrezzate per gestire da soli ciò che potete.", best: true, fb: "Come i re che crearono eserciti propri, diventare autonomi vi rende più forti e capaci." },
         { testo: "Aspetti che il problema si risolva da solo.", best: false, fb: "L'autonomia non arriva da sola. Si conquista attrezzandosi, come fecero le monarchie con strumenti propri." }
       ],
       ponte: `Le monarchie diventarono forti quando si dotarono di <strong>strumenti propri</strong>, smettendo di dipendere dagli altri. Imparare a cavartela da solo in ciò che puoi gestire è il modo per diventare più libero e capace.`,
+      sceltaStoria: `I re diventarono forti quando scelsero di dotarsi di strumenti propri — esercito permanente, tasse, burocrazia — invece di dipendere dai grandi feudatari.`,
       competenza: "So conquistare autonomia dotandomi degli strumenti per cavarmela da solo."
     }
   ]
@@ -922,10 +1189,11 @@ const CAPITOLI = [
       domanda: `Come rispondi?`,
       opzioni: [
         { testo: "Sei d'accordo: le cose importanti le abbiamo fatte noi.", best: false, fb: "I numeri che usi, lo zero, la bussola che orienta le navi vengono da culture non europee. La storia smentisce questa idea." },
-        { testo: "Fai notare che zero, algebra, carta e bussola vengono da altre civiltà.", best: true, fb: "Perfetto: è la verità storica. Le civiltà si scambiano continuamente scoperte. Riconoscerlo è rispetto e onestà." },
+        { testo: "Fai notare che zero, algebra, carta e bussola vengono da altre civiltà.", best: true, fb: "È la verità storica. Le civiltà si scambiano continuamente scoperte. Riconoscerlo è rispetto e onestà." },
         { testo: "Non rispondi: tanto è questione di opinioni.", best: false, fb: "Non è solo un'opinione: è un fatto verificabile. Le grandi invenzioni del Medioevo nacquero in molti angoli del mondo." }
       ],
       ponte: `Il Medioevo fuori dall'Europa ci ricorda che <strong>nessuna civiltà cresce da sola</strong>. Lo zero che usi in matematica e la bussola che orienta le navi nascono lontano da qui. Riconoscere il valore delle altre culture rende più ricca la tua.`,
+      sceltaStoria: `Mentre l'Europa si credeva il centro del mondo, altre civiltà sceglievano la conoscenza: gli Arabi diffusero lo <strong>zero</strong> e l'algebra, i Cinesi inventarono bussola, carta e polvere da sparo.`,
       competenza: "So riconoscere che ogni cultura ha dato contributi preziosi all'umanità."
     },
     {
@@ -933,10 +1201,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Le scarti: se è diverso da come faccio io, è sbagliato.", best: false, fb: "Gli Europei a lungo ignorarono invenzioni cinesi e arabe perché \"diverse\". Persero secoli prima di adottarle." },
-        { testo: "Le ascolti con curiosità: potresti imparare un modo migliore.", best: true, fb: "Esatto: è lo spirito degli scambi sulla Via della Seta. Le idee diverse sono occasioni di crescita, non minacce." },
+        { testo: "Le ascolti con curiosità: potresti imparare un modo migliore.", best: true, fb: "È lo spirito degli scambi sulla Via della Seta. Le idee diverse sono occasioni di crescita, non minacce." },
         { testo: "Fai finta di ascoltare ma poi imponi il tuo metodo.", best: false, fb: "Chiudersi alle idee altrui fa perdere occasioni. Le civiltà più avanzate erano quelle aperte a imparare dagli altri." }
       ],
       ponte: `Lungo la <strong>Via della Seta</strong> viaggiavano idee oltre alle merci, e le civiltà che le accoglievano fiorivano. Ascoltare con <strong>curiosità</strong> ciò che è diverso, invece di scartarlo, è il segreto di chi cresce davvero.`,
+      sceltaStoria: `Lungo la <strong>Via della Seta</strong> le civiltà che sceglievano di accogliere idee e tecniche straniere — non solo merci — fiorivano più delle altre.`,
       competenza: "So accogliere con curiosità idee diverse dalle mie come occasione di crescita."
     },
     {
@@ -944,10 +1213,11 @@ const CAPITOLI = [
       domanda: `Cosa pensi?`,
       opzioni: [
         { testo: "È vero: non importa l'origine, conta solo che funzionino.", best: false, fb: "Usarle va bene, ma ignorare da dove vengono cancella il contributo di intere civiltà e alimenta il senso di superiorità." },
-        { testo: "Mi fa piacere sapere che vengono da culture diverse: è un'eredità di tutta l'umanità.", best: true, fb: "Bravo: riconoscere le origini delle cose che usi è gratitudine e rispetto verso chi le ha inventate, ovunque sia." },
+        { testo: "Mi fa piacere sapere che vengono da culture diverse: è un'eredità di tutta l'umanità.", best: true, fb: "Riconoscere le origini delle cose che usi è gratitudine e rispetto verso chi le ha inventate, ovunque sia." },
         { testo: "Non ci penso, non mi interessa.", best: false, fb: "Sapere che lo zero è arabo o la bussola cinese ti aiuta a vedere il mondo come un'opera comune, non di un popolo solo." }
       ],
       ponte: `Gli strumenti che usi ogni giorno sono un'<strong>eredità comune dell'umanità</strong>, costruita da molte civiltà. Riconoscere da dove vengono le cose è un modo per rispettare tutti coloro che hanno reso possibile il tuo presente.`,
+      sceltaStoria: `Numeri, alfabeto, bussola, carta: l'umanità ha scelto, nei secoli, di tramandarsi a vicenda le proprie invenzioni, costruendo un'<strong>eredità comune</strong> di molte civiltà.`,
       competenza: "So riconoscere che il sapere che uso è un'eredità comune di tutte le civiltà."
     }
   ]
@@ -983,6 +1253,7 @@ const CAPITOLI = [
         { testo: "Te ne vai: tanto fa tutto lui, sei inutile.", best: false, fb: "Cedere del tutto è ciò che indebolì i cittadini sotto le Signorie. Tu hai qualcosa da dare: il punto è partecipare." }
       ],
       ponte: `Le Signorie mostrano <strong>il prezzo nascosto del \"lascia fare a lui\"</strong>: si guadagna comodità ma si perde la voce. Partecipare costa fatica, ma ti mantiene libero.`,
+      sceltaStoria: `Stanchi delle lotte tra fazioni, molti Comuni scelsero la comodità: affidarono tutto il potere a un solo <strong>signore</strong> (la Signoria), guadagnando ordine ma perdendo la propria voce.`,
       competenza: "So che cedere tutto il potere a uno solo, anche se comodo, mi toglie la voce."
     },
     {
@@ -990,10 +1261,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Accetti i regali e fai sempre ciò che dice: conviene.", best: false, fb: "È il meccanismo del mecenatismo usato per comprare il consenso: ricevi vantaggi, ma diventi dipendente e zittito." },
-        { testo: "Apprezzi i suoi pregi ma mantieni la tua libertà di giudizio.", best: true, fb: "Bravo: i Medici resero Firenze splendida, ma i cittadini più saggi non rinunciarono al loro pensiero. Si può ammirare senza vendersi." },
+        { testo: "Apprezzi i suoi pregi ma mantieni la tua libertà di giudizio.", best: true, fb: "I Medici resero Firenze splendida, ma i cittadini più saggi non rinunciarono al loro pensiero. Si può ammirare senza vendersi." },
         { testo: "Lo rifiuti in tutto, anche nelle cose buone, per principio.", best: false, fb: "Anche questo è un eccesso. Il mecenatismo produsse arte splendida: la saggezza è goderne senza perdere l'indipendenza." }
       ],
       ponte: `Il <strong>mecenatismo</strong> dei signori produsse arte meravigliosa, ma serviva anche a comprare il consenso. Saper <strong>apprezzare i pregi di qualcuno senza vendergli la propria libertà</strong> è un equilibrio prezioso.`,
+      sceltaStoria: `I signori scelsero il <strong>mecenatismo</strong>: finanziarono artisti e opere meravigliose, ma usavano quello splendore anche per comprare consenso e obbedienza.`,
       competenza: "So apprezzare ciò che gli altri offrono senza rinunciare alla mia libertà di giudizio."
     },
     {
@@ -1001,10 +1273,11 @@ const CAPITOLI = [
       domanda: `Cosa ne pensi?`,
       opzioni: [
         { testo: "Inutile: meglio continuare a sfidarsi finché uno vince.", best: false, fb: "Lo scontro continuo logora tutti. Gli Stati italiani lo capirono e con la pace di Lodi scelsero l'equilibrio." },
-        { testo: "Ottima idea: un accordo equilibrato conviene a tutti e ferma gli scontri.", best: true, fb: "Esatto: è la pace di Lodi. Riconoscere reciprocamente spazi e regole crea un equilibrio che fa stare meglio tutti." },
+        { testo: "Ottima idea: un accordo equilibrato conviene a tutti e ferma gli scontri.", best: true, fb: "È la pace di Lodi. Riconoscere reciprocamente spazi e regole crea un equilibrio che fa stare meglio tutti." },
         { testo: "Accordo solo se il tuo gruppo ottiene tutto.", best: false, fb: "Un accordo squilibrato non dura. La pace di Lodi resse perché nessuno schiacciava gli altri: l'equilibrio fa la stabilità." }
       ],
       ponte: `La <strong>pace di Lodi</strong> tenne in equilibrio gli Stati italiani per decenni, perché nessuno dominava sugli altri. Accordi <strong>equilibrati e rispettosi</strong> fermano gli scontri meglio della ricerca di un vincitore assoluto.`,
+      sceltaStoria: `Gli Stati italiani scelsero l'equilibrio invece della guerra senza fine: con la <strong>pace di Lodi</strong> (1454) si riconobbero a vicenda e nessuno cercò di dominare gli altri per decenni.`,
       competenza: "So che un equilibrio rispettoso tra le parti produce più pace della ricerca di un vincitore."
     }
   ]
@@ -1036,10 +1309,11 @@ const CAPITOLI = [
       domanda: `Come ti comporti?`,
       opzioni: [
         { testo: "Ridi anche tu: in effetti il disegno non serve a niente.", best: false, fb: "L'Umanesimo direbbe il contrario: ogni talento ha valore. Leonardo era prima di tutto un disegnatore straordinario." },
-        { testo: "Riconosci il suo talento e gli chiedi di aiutarvi con i cartelloni e i progetti.", best: true, fb: "Perfetto: è lo spirito rinascimentale. Ogni persona porta talenti diversi e preziosi: valorizzarli fa crescere tutti." },
+        { testo: "Riconosci il suo talento e gli chiedi di aiutarvi con i cartelloni e i progetti.", best: true, fb: "È lo spirito rinascimentale. Ogni persona porta talenti diversi e preziosi: valorizzarli fa crescere tutti." },
         { testo: "Pensi che conti solo andar bene in italiano e matematica.", best: false, fb: "Il Rinascimento ruppe proprio questa idea: la persona vale in tutte le sue capacità, non solo in poche materie." }
       ],
       ponte: `L'Umanesimo ha portato un'idea che vale ancora: <strong>ogni persona ha dignità e talenti unici da coltivare</strong>. Quel compagno che disegna benissimo non è \"meno bravo\": è bravo in modo diverso.`,
+      sceltaStoria: `Gli umanisti scelsero di rimettere l'<strong>uomo al centro</strong>: riconobbero che ogni persona ha dignità e talenti unici da coltivare, non solo quelli utili al potere o alla fede.`,
       competenza: "So riconoscere e valorizzare i talenti diversi di ciascuna persona."
     },
     {
@@ -1047,10 +1321,11 @@ const CAPITOLI = [
       domanda: `Cosa scegli?`,
       opzioni: [
         { testo: "Ti arrendi e ti chiudi in una sola cosa, abbandonando le altre.", best: false, fb: "Il Rinascimento celebrava l'uomo curioso di tutto. Spegnere la curiosità troppo presto impoverisce." },
-        { testo: "Coltivi più interessi: la curiosità in un campo arricchisce gli altri.", best: true, fb: "Esatto: è l'ideale dell'uomo \"universale\" come Leonardo, scienziato e artista insieme. Gli interessi diversi si nutrono a vicenda." },
+        { testo: "Coltivi più interessi: la curiosità in un campo arricchisce gli altri.", best: true, fb: "È l'ideale dell'uomo \"universale\" come Leonardo, scienziato e artista insieme. Gli interessi diversi si nutrono a vicenda." },
         { testo: "Non provi niente per paura di non eccellere.", best: false, fb: "La paura di non essere perfetto blocca la crescita. Leonardo sbagliava e riprovava: la curiosità vale più della perfezione." }
       ],
       ponte: `Il Rinascimento celebrava l'<strong>uomo dai molti talenti</strong>, curioso di tutto come Leonardo. Coltivare <strong>più interessi</strong> non è dispersione: la curiosità in un campo accende e arricchisce tutti gli altri.`,
+      sceltaStoria: `Il Rinascimento scelse come modello l'<strong>uomo dai molti talenti</strong>: Leonardo da Vinci fu pittore, scienziato e inventore: la curiosità in un campo accendeva tutti gli altri.`,
       competenza: "So coltivare la mia curiosità in più campi senza paura di sbagliare."
     },
     {
@@ -1058,10 +1333,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "La tieni per te: il sapere è un vantaggio da non regalare.", best: false, fb: "Prima della stampa il sapere era chiuso in pochi libri costosi. La stampa lo aprì a tutti e cambiò il mondo." },
-        { testo: "La condividi: come la stampa, far circolare le idee fa crescere tutti.", best: true, fb: "Bravo: è la rivoluzione di Gutenberg. Diffondere il sapere moltiplica le opportunità per l'intera comunità." },
+        { testo: "La condividi: come la stampa, far circolare le idee fa crescere tutti.", best: true, fb: "È la rivoluzione di Gutenberg. Diffondere il sapere moltiplica le opportunità per l'intera comunità." },
         { testo: "La condividi solo con i tuoi amici più stretti.", best: false, fb: "Meglio di niente, ma la stampa ebbe un effetto enorme proprio perché rese il sapere accessibile al maggior numero di persone." }
       ],
       ponte: `La <strong>stampa</strong> rese la cultura accessibile a molti, non più solo a pochi privilegiati. Condividere ciò che sai — uno schema, una spiegazione — è, nel tuo piccolo, la stessa forza che democratizzò il sapere.`,
+      sceltaStoria: `Con la <strong>stampa</strong> a caratteri mobili di Gutenberg si scelse di rendere i libri accessibili a molti: il sapere uscì dalle mani di pochi privilegiati.`,
       competenza: "So condividere il sapere per renderlo accessibile a tutti, non solo a pochi."
     }
   ]
@@ -1093,10 +1369,11 @@ const CAPITOLI = [
       domanda: `Cosa rispondi?`,
       opzioni: [
         { testo: "Sì, è stata solo un grande progresso per tutti.", best: false, fb: "Guardi una faccia sola. Per i popoli americani fu una catastrofe: conquista, malattie, schiavitù." },
-        { testo: "Dici che ha avuto due facce: scambi preziosi ma anche violenze terribili.", best: true, fb: "Esatto: è il pensiero storico maturo. Gli eventi quasi mai sono solo positivi o solo negativi." },
+        { testo: "Dici che ha avuto due facce: scambi preziosi ma anche violenze terribili.", best: true, fb: "È il pensiero storico maturo. Gli eventi quasi mai sono solo positivi o solo negativi." },
         { testo: "Dici che è stata solo una tragedia, niente di buono.", best: false, fb: "Anche questo è guardare una faccia sola. Ci furono scambi che cambiarono il mondo, ma anche orrori." }
       ],
       ponte: `La scoperta dell'America insegna che <strong>la storia ha quasi sempre due facce</strong>. Quando mangi una pizza tocchi un frutto di quello scambio; ma lo stesso evento fu una tragedia per milioni di persone. Vedere entrambe le facce ti rende più giusto.`,
+      sceltaStoria: `La scoperta dell'America (1492) ebbe conseguenze opposte: per l'Europa nuovi cibi, ricchezze e rotte commerciali; per i popoli americani la conquista, le malattie portate dagli europei e un enorme calo della popolazione.`,
       competenza: "So guardare un evento da più punti di vista, riconoscendone luci e ombre."
     },
     {
@@ -1104,10 +1381,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Lo usi e basta, senza farti domande sulla sua origine.", best: false, fb: "Lo scambio colombiano ci ricorda quanto delle nostre vite venga da altrove. Ignorarlo impoverisce la comprensione del mondo." },
-        { testo: "Ti incuriosisci e scopri la sua storia e la cultura da cui viene.", best: true, fb: "Bravo: è lo sguardo dello storico. Ogni cosa che usiamo racconta una storia di incontri tra popoli." },
+        { testo: "Ti incuriosisci e scopri la sua storia e la cultura da cui viene.", best: true, fb: "È lo sguardo dello storico. Ogni cosa che usiamo racconta una storia di incontri tra popoli." },
         { testo: "Pensi che ormai è \"roba nostra\", l'origine non conta.", best: false, fb: "Il pomodoro è americano, eppure è simbolo dell'Italia: riconoscere le origini arricchisce, non toglie nulla." }
       ],
       ponte: `Lo <strong>scambio colombiano</strong> ha riempito la nostra vita di cose nate altrove: dal pomodoro alla patata. Incuriosirsi delle <strong>origini</strong> di ciò che usi ti fa scoprire che il mondo è da sempre un intreccio di culture.`,
+      sceltaStoria: `Lo <strong>scambio colombiano</strong> riempì le tavole di tutti: pomodoro, patata, mais e cacao arrivarono dall'America, mentre cavalli e grano andarono là. Il mondo, di fatto, si intrecciò.`,
       competenza: "So incuriosirmi delle origini delle cose che uso e del mondo intrecciato che raccontano."
     },
     {
@@ -1115,10 +1393,11 @@ const CAPITOLI = [
       domanda: `Cosa scegliete?`,
       opzioni: [
         { testo: "Lo schiacciate e vi prendete tutto: avete il potere di farlo.", best: false, fb: "È la logica dei conquistatori: \"posso, quindi lo faccio\". Quella logica produsse sterminio e schiavitù." },
-        { testo: "Usate la vostra forza con rispetto, senza umiliare i più deboli.", best: true, fb: "Bravo: avere più potere non rende giusto abusarne. La conquista insegna proprio cosa succede quando la forza non ha freni." },
+        { testo: "Usate la vostra forza con rispetto, senza umiliare i più deboli.", best: true, fb: "Avere più potere non rende giusto abusarne. La conquista insegna proprio cosa succede quando la forza non ha freni." },
         { testo: "Vincete e poi li prendete in giro per la sconfitta.", best: false, fb: "Umiliare chi è più debole è esattamente l'errore dei conquistatori. La vera forza si misura nel rispetto, non nell'abuso." }
       ],
       ponte: `La <strong>conquista del Nuovo Mondo</strong> mostra cosa accade quando chi ha più forza pensa che \"potere\" significhi \"diritto di fare tutto\". Usare la propria forza <strong>con rispetto e senza abusare</strong> dei più deboli è la lezione più importante di quella tragedia.`,
+      sceltaStoria: `Nel Nuovo Mondo i conquistatori europei usarono la superiorità delle armi per sottomettere i popoli indigeni e impadronirsi delle loro terre e ricchezze.`,
       competenza: "So che avere più forza non dà il diritto di abusare di chi è più debole."
     }
   ]
@@ -1150,10 +1429,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Continui a obbedirgli: decide bene e non devi pensarci.", best: false, fb: "È pericoloso: quando uno solo concentra tutto, la libertà di tutti gli altri sparisce. Per questo gli Stati si opposero a Carlo V." },
-        { testo: "Con gli altri proponi che le decisioni si prendano a turno o insieme.", best: true, fb: "Esatto: è il principio dell'equilibrio. Quando uno diventa troppo potente, gli altri si uniscono per riportare il bilanciamento." },
+        { testo: "Con gli altri proponi che le decisioni si prendano a turno o insieme.", best: true, fb: "È il principio dell'equilibrio. Quando uno diventa troppo potente, gli altri si uniscono per riportare il bilanciamento." },
         { testo: "Te ne vai dal gruppo da solo.", best: false, fb: "Da solo sei più debole. Contro un potere eccessivo funziona meglio unirsi per ristabilire l'equilibrio." }
       ],
       ponte: `Il Cinquecento insegna che <strong>quando una persona diventa troppo potente, la libertà di tutti gli altri è in pericolo</strong>. Gli Stati si unirono contro Carlo V per mantenere l'equilibrio. Vale anche per il tuo gruppo.`,
+      sceltaStoria: `Quando <strong>Carlo V</strong> riunì sotto di sé mezza Europa, gli altri Stati scelsero di allearsi contro di lui per non farsi schiacciare: difendere l'equilibrio era difendere la libertà di tutti.`,
       competenza: "So riconoscere quando un potere eccessivo minaccia la libertà di tutti e cercare l'equilibrio."
     },
     {
@@ -1161,10 +1441,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Insisti a fare tutto da solo per dimostrare quanto vali.", best: false, fb: "Nemmeno Carlo V, l'uomo più potente d'Europa, riuscì a governare tutto da solo: fu costretto ad abdicare e dividere." },
-        { testo: "Riconosci i tuoi limiti e dividi i compiti con altri.", best: true, fb: "Esatto: è la lezione dell'abdicazione di Carlo V. Riconoscere che non si può fare tutto da soli è forza, non debolezza." },
+        { testo: "Riconosci i tuoi limiti e dividi i compiti con altri.", best: true, fb: "È la lezione dell'abdicazione di Carlo V. Riconoscere che non si può fare tutto da soli è forza, non debolezza." },
         { testo: "Mandi tutto all'aria perché non ce la fai.", best: false, fb: "Non serve rinunciare a tutto: basta dividere il peso. Carlo non distrusse l'impero, lo affidò ad altri." }
       ],
       ponte: `Persino <strong>Carlo V</strong>, padrone di mezzo mondo, dovette ammettere che <strong>non si può controllare tutto da soli</strong> e divise il suo impero. Riconoscere i propri limiti e <strong>condividere il peso</strong> non è una sconfitta: è saggezza.`,
+      sceltaStoria: `Persino Carlo V, l'uomo più potente d'Europa, scelse di ammettere i propri limiti: abdicò e divise il suo immenso impero tra il figlio Filippo II e il fratello Ferdinando.`,
       competenza: "So riconoscere i miei limiti e condividere i compiti troppo grandi per me solo."
     },
     {
@@ -1172,10 +1453,11 @@ const CAPITOLI = [
       domanda: `Cosa scegli?`,
       opzioni: [
         { testo: "Ti unisci al più forte per stare dalla parte dei vincenti.", best: false, fb: "Rafforzare chi è già troppo potente distrugge l'equilibrio e mette a rischio la libertà di tutti, compresa la tua un domani." },
-        { testo: "Ti adoperi perché nessuno dei due schiacci l'altro.", best: true, fb: "Bravo: è la politica dell'equilibrio che protesse l'Europa. Impedire che uno solo domini conviene a tutti." },
+        { testo: "Ti adoperi perché nessuno dei due schiacci l'altro.", best: true, fb: "È la politica dell'equilibrio che protesse l'Europa. Impedire che uno solo domini conviene a tutti." },
         { testo: "Resti neutrale ma godi nel vedere lo scontro.", best: false, fb: "La neutralità che gode dello scontro non aiuta. Gli Stati saggi lavoravano attivamente per mantenere l'equilibrio, non per il caos." }
       ],
       ponte: `Per evitare che Carlo V dominasse tutto, gli altri Stati lavorarono per l'<strong>equilibrio</strong>. Adoperarsi perché <strong>nessuno schiacci nessuno</strong>, invece di rafforzare il più forte, è ciò che protegge la libertà di tutti.`,
+      sceltaStoria: `Per evitare che un solo sovrano dominasse, gli Stati europei scelsero la politica dell'<strong>equilibrio</strong>: si schierarono per indebolire il più forte, non per rafforzarlo.`,
       competenza: "So agire per mantenere l'equilibrio invece di rafforzare chi è già troppo potente."
     }
   ]
@@ -1207,10 +1489,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Lo ricondividi subito: è divertente e fa ridere tutti.", best: false, fb: "Come la stampa moltiplicò le idee di Lutero, un tocco moltiplica per cento un messaggio che ferisce. Diffondere è un potere." },
-        { testo: "Ti fermi e pensi: diffonderlo a tutti che effetto avrà su quel ragazzo?", best: true, fb: "Bravo: hai capito che diffondere è un potere con responsabilità. Anche il tuo dito moltiplica i messaggi, come la stampa." },
+        { testo: "Ti fermi e pensi: diffonderlo a tutti che effetto avrà su quel ragazzo?", best: true, fb: "Diffondere è un potere che porta con sé una responsabilità: anche un dito moltiplica i messaggi, come fece la stampa." },
         { testo: "Non lo ricondividi ma lo mostri ridendo agli amici vicino a te.", best: false, fb: "Meglio che diffonderlo a tutti, ma il meccanismo è lo stesso: stai facendo correre qualcosa che ferisce." }
       ],
       ponte: `La stampa rese le idee \"virali\" cinque secoli prima dei social. La Riforma insegna che <strong>diffondere un messaggio è un potere enorme, e ogni potere chiede responsabilità</strong>. Quando il dito è sul tasto \"condividi\", hai la stessa forza che cambiò l'Europa.`,
+      sceltaStoria: `Le <strong>95 tesi</strong> di Lutero, grazie alla stampa, si diffusero in tutta Europa in poche settimane: la prova che diffondere un messaggio è un potere enorme, lo stesso del tasto "condividi".`,
       competenza: "So usare con responsabilità il potere di diffondere messaggi."
     },
     {
@@ -1218,10 +1501,11 @@ const CAPITOLI = [
       domanda: `Cosa fai prima di condividere?`,
       opzioni: [
         { testo: "La condividi subito: se è clamorosa, merita di girare.", best: false, fb: "Le idee virali si diffondono in fretta, vere o false che siano. La stampa diffuse anche tante calunnie e falsità." },
-        { testo: "Verifichi se è vera e da dove viene, prima di farla girare.", best: true, fb: "Esatto: la velocità della diffusione rende ancora più importante controllare prima. Sei tu l'anello che può fermare una bufala." },
+        { testo: "Verifichi se è vera e da dove viene, prima di farla girare.", best: true, fb: "La velocità della diffusione rende ancora più importante controllare prima. Sei tu l'anello che può fermare una bufala." },
         { testo: "La condividi ma scrivi \"forse è falsa\".", best: false, fb: "L'avvertimento si perde, la notizia resta. Una volta diffusa, una falsità è difficilissima da fermare: meglio verificare prima." }
       ],
       ponte: `La <strong>stampa</strong> diffuse idee straordinarie ma anche calunnie, perché la velocità non distingue il vero dal falso. Oggi sei tu l'anello della catena: <strong>verificare prima di condividere</strong> è il modo per non diventare il diffusore di una bufala.`,
+      sceltaStoria: `La <strong>stampa</strong> diffuse idee straordinarie ma anche calunnie e falsi: la velocità non distingue il vero dal falso, allora come oggi.`,
       competenza: "So verificare una notizia prima di diffonderla, per non propagare il falso."
     },
     {
@@ -1229,10 +1513,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Stai zitto: chi sei tu per mettere in discussione le cose?", best: false, fb: "Anche Lutero era un semplice monaco, ma le sue critiche motivate cambiarono la storia. Il silenzio non migliora nulla." },
-        { testo: "Esprimi il tuo dissenso in modo argomentato e rispettoso.", best: true, fb: "Bravo: Lutero scrisse 95 tesi ragionate, non insulti. Criticare con argomenti, non con offese, è ciò che fa cambiare le cose." },
+        { testo: "Esprimi il tuo dissenso in modo argomentato e rispettoso.", best: true, fb: "Lutero scrisse 95 tesi ragionate, non insulti. Criticare con argomenti, non con offese, è ciò che fa cambiare le cose." },
         { testo: "Protesti urlando e offendendo chi non la pensa come te.", best: false, fb: "Le tesi di Lutero erano argomenti, non insulti. Il dissenso è potente quando è ragionato; offendere lo indebolisce." }
       ],
       ponte: `Lutero, semplice monaco, cambiò la storia con <strong>95 tesi argomentate</strong>, non con insulti. Saper esprimere il proprio <strong>dissenso in modo motivato e rispettoso</strong> è una forza che può migliorare le cose anche quando \"si è sempre fatto così\".`,
+      sceltaStoria: `Lutero, un semplice monaco, scelse di contestare la Chiesa non con insulti ma con <strong>95 tesi argomentate</strong>, affisse a Wittenberg nel 1517: il dissenso motivato cambiò la storia.`,
       competenza: "So esprimere il mio disaccordo con argomenti e rispetto, non con offese."
     }
   ]
@@ -1264,10 +1549,11 @@ const CAPITOLI = [
       domanda: `Cosa proponi?`,
       opzioni: [
         { testo: "Stai col tuo gruppo e ignori l'altro: che si arrangino.", best: false, fb: "È ciò che prolungò la Guerra dei Trent'anni: nessuno cedeva, tutti perdevano. La divisione totale fa stare male tutti." },
-        { testo: "Proponi di rispettarvi pur restando diversi: si può convivere senza pensarla uguale.", best: true, fb: "Perfetto: è il principio della Pace di Vestfalia. Non serve essere d'accordo su tutto per convivere in pace." },
+        { testo: "Proponi di rispettarvi pur restando diversi: si può convivere senza pensarla uguale.", best: true, fb: "È il principio della Pace di Vestfalia. Non serve essere d'accordo su tutto per convivere in pace." },
         { testo: "Cerchi di convincere tutti a pensarla come il tuo gruppo.", best: false, fb: "È ciò che scatenò la guerra: voler imporre a tutti la propria idea. Vestfalia funzionò perché accettò la diversità." }
       ],
       ponte: `La <strong>Pace di Vestfalia</strong> insegna che <strong>si può convivere pur pensandola diversamente</strong>. La pace non nasce quando tutti diventano uguali, ma quando si impara a rispettare le differenze.`,
+      sceltaStoria: `Dopo trent'anni di guerra di religione, l'Europa scelse la convivenza: con la <strong>Pace di Vestfalia</strong> (1648) accettò che cattolici e protestanti potessero vivere fianco a fianco.`,
       competenza: "So che si può convivere e collaborare anche con chi la pensa diversamente da me."
     },
     {
@@ -1275,10 +1561,11 @@ const CAPITOLI = [
       domanda: `Cosa scegli?`,
       opzioni: [
         { testo: "Vai avanti a oltranza: ceder per primo sarebbe perdere.", best: false, fb: "La Guerra dei Trent'anni durò proprio per questo orgoglio: trent'anni di rovine prima che capissero che tutti perdevano." },
-        { testo: "Proponi tu una tregua: meglio una pace giusta che una guerra infinita.", best: true, fb: "Esatto: è lo spirito di Vestfalia. Riconoscere che il conflitto fa male a tutti e proporre la pace è la scelta più forte." },
+        { testo: "Proponi tu una tregua: meglio una pace giusta che una guerra infinita.", best: true, fb: "È lo spirito di Vestfalia. Riconoscere che il conflitto fa male a tutti e proporre la pace è la scelta più forte." },
         { testo: "Aspetti che il tempo cancelli tutto da solo.", best: false, fb: "Il tempo da solo non guarì la Guerra dei Trent'anni: ci volle un accordo. La pace va costruita, non solo attesa." }
       ],
       ponte: `La <strong>Guerra dei Trent'anni</strong> durò trent'anni perché nessuno voleva cedere, ma alla fine tutti avevano perso. Proporre tu una <strong>pace giusta</strong> invece di un conflitto infinito non è arrendersi: è la scelta più intelligente.`,
+      sceltaStoria: `La <strong>Guerra dei Trent'anni</strong> (1618–1648) si trascinò per trent'anni perché nessuna delle parti voleva cedere; si concluse con la pace solo dopo distruzioni enormi e moltissime vittime in tutta l'Europa centrale.`,
       competenza: "So proporre una pace giusta per chiudere un conflitto che danneggia tutti."
     },
     {
@@ -1286,10 +1573,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Lo lasci fare: in fondo qualcuno deve comandare.", best: false, fb: "È il modello dell'assolutismo, il \"Lo Stato sono io\" di Luigi XIV. Comodo per il capo, soffocante per tutti gli altri." },
-        { testo: "Ricordi che le decisioni del gruppo riguardano tutti e vanno condivise.", best: true, fb: "Bravo: hai colto il limite dell'assolutismo. Il potere che non ascolta nessuno toglie voce e libertà a tutti gli altri." },
+        { testo: "Ricordi che le decisioni del gruppo riguardano tutti e vanno condivise.", best: true, fb: "È il limite dell'assolutismo: il potere che non ascolta nessuno toglie voce e libertà a tutti gli altri." },
         { testo: "Cerchi di diventare tu il nuovo capo assoluto.", best: false, fb: "Sostituire un capo assoluto con un altro non risolve nulla. Il problema è il potere senza ascolto, non chi lo detiene." }
       ],
       ponte: `L'<strong>assolutismo</strong> di Luigi XIV concentrava tutto il potere in una persona sola: \"Lo Stato sono io\". Ricordare che <strong>le decisioni che riguardano tutti vanno condivise</strong> è l'argine contro ogni \"capo assoluto\", ieri come nel tuo gruppo.`,
+      sceltaStoria: `In Francia <strong>Luigi XIV</strong> scelse l'assolutismo: concentrò tutto il potere in sé — "Lo Stato sono io" — senza più condividere le decisioni con nessuno.`,
       competenza: "So opporre alla logica del \"capo assoluto\" la condivisione delle decisioni comuni."
     }
   ]
@@ -1321,10 +1609,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Ci credi e la compri: se lo dicono in tanti, sarà vero.", best: false, fb: "È l'errore che Galileo combatté: credere perché \"lo dicono tutti\". I numeri delle visualizzazioni non sono prove." },
-        { testo: "Ti chiedi: dove sono le prove? Ci sono esperimenti seri che lo dimostrano?", best: true, fb: "Perfetto: ragioni come uno scienziato. Non conta chi o quanti lo dicono, ma quali prove esistono. Così ti difendi dalle bufale." },
+        { testo: "Ti chiedi: dove sono le prove? Ci sono esperimenti seri che lo dimostrano?", best: true, fb: "Ragioni come uno scienziato. Non conta chi o quanti lo dicono, ma quali prove esistono. Così ti difendi dalle bufale." },
         { testo: "Non sai cosa pensare, quindi la compri per sicurezza.", best: false, fb: "Nel dubbio, lo scienziato non compra: cerca le prove. Galileo insegnò a sospendere il giudizio finché non hai dati seri." }
       ],
       ponte: `Il metodo di Galileo è il tuo scudo contro le bufale: <strong>non \"chi lo dice\" o \"quanti lo dicono\", ma \"quali prove ci sono\"</strong>. Una promessa con milioni di visualizzazioni non è più vera per questo.`,
+      sceltaStoria: `Galileo scelse un metodo nuovo: non credere a un'affermazione per l'autorità di chi la diceva, ma metterla alla prova con osservazioni ed <strong>esperimenti</strong>.`,
       competenza: "So valutare un'affermazione cercando le prove, non chi o quanti la dicono."
     },
     {
@@ -1332,10 +1621,11 @@ const CAPITOLI = [
       domanda: `Cosa fai?`,
       opzioni: [
         { testo: "Tieni la tua idea: ci sei affezionato, i dati non contano.", best: false, fb: "Lo scienziato cambia idea davanti alle prove. Restare attaccati alle proprie convinzioni a dispetto dei fatti blocca la conoscenza." },
-        { testo: "Esamini i dati e, se sono solidi, cambi idea.", best: true, fb: "Bravo: è il cuore del metodo scientifico. La forza non è avere sempre ragione, ma seguire le prove anche quando smentiscono te." },
+        { testo: "Esamini i dati e, se sono solidi, cambi idea.", best: true, fb: "È il cuore del metodo scientifico. La forza non è avere sempre ragione, ma seguire le prove anche quando smentiscono te." },
         { testo: "Cambi idea solo perché lui insiste, senza guardare i dati.", best: false, fb: "Galileo non cambiava idea per insistenza, ma per le prove. Conta esaminare i dati, non chi grida più forte." }
       ],
       ponte: `Galileo ci insegna che <strong>davanti a prove solide si cambia idea</strong>, anche quando ci eravamo affezionati a una convinzione. Seguire i fatti invece del proprio orgoglio è ciò che fa progredire la scienza e il pensiero.`,
+      sceltaStoria: `La scienza moderna scelse di seguire i fatti: Copernico e Galileo cambiarono l'idea millenaria della Terra al centro perché le <strong>prove</strong> dicevano il contrario.`,
       competenza: "So cambiare la mia opinione quando le prove dimostrano che avevo torto."
     },
     {
@@ -1343,29 +1633,172 @@ const CAPITOLI = [
       domanda: `Come reagisci?`,
       opzioni: [
         { testo: "Ti zittisci: se lo dice un'autorità, dev'essere vero.", best: false, fb: "È esattamente ciò che Galileo mise in discussione. Anche le autorità possono sbagliare: conta il ragionamento, non il ruolo." },
-        { testo: "Chiedi con rispetto: quali sono le prove o le ragioni?", best: true, fb: "Bravo: è il metodo di Galileo. Chiedere le ragioni, con rispetto, non è mancanza di educazione: è pensiero critico." },
+        { testo: "Chiedi con rispetto: quali sono le prove o le ragioni?", best: true, fb: "È il metodo di Galileo. Chiedere le ragioni, con rispetto, non è mancanza di educazione: è pensiero critico." },
         { testo: "Accetti tutto ciò che dice l'autorità senza mai domandare.", best: false, fb: "La scienza nacque proprio quando si smise di accettare tutto per autorità. Domandare le prove è il motore della conoscenza." }
       ],
       ponte: `Galileo sfidò l'idea che qualcosa fosse vero solo perché \"lo diceva un'autorità\". Chiedere con rispetto <strong>\"quali sono le prove?\"</strong>, anche a chi ha un ruolo importante, è il cuore del pensiero critico che ci difende dagli errori.`,
+      sceltaStoria: `Galileo sfidò l'idea che qualcosa fosse vero solo perché "lo diceva Aristotele" o la tradizione: chiese prove anche all'autorità, e per questo fu processato.`,
       competenza: "So chiedere con rispetto le prove e le ragioni, senza accettare tutto per autorità."
     }
   ]
 }
 ]; // END_CAPITOLI
 
+/* =========================================================================
+   HOT TEXT — un esercizio "clicca le parole giuste" per ogni capitolo.
+   ogni voce: { istruzione, opzioni:[{t,ok}] } ; i distrattori sono termini
+   di altri capitoli, per allenare a distinguere.
+   ========================================================================= */
+const HOTTEXT = [
+  { istruzione: "Clicca i 2 elementi legati ai Longobardi e al loro diritto.", opzioni: [ {t:"Editto di Rotari",ok:true},{t:"guidrigildo",ok:true},{t:"feudo",ok:false},{t:"podestà",ok:false},{t:"caravella",ok:false} ] },
+  { istruzione: "Clicca i 2 strumenti con cui Carlo Magno governava l'impero.", opzioni: [ {t:"missi dominici",ok:true},{t:"capitolari",ok:true},{t:"guidrigildo",ok:false},{t:"Comune",ok:false},{t:"bussola",ok:false} ] },
+  { istruzione: "Clicca le 2 parole tipiche del mondo feudale.", opzioni: [ {t:"vassallo",ok:true},{t:"servi della gleba",ok:true},{t:"podestà",ok:false},{t:"indulgenza",ok:false},{t:"caravella",ok:false} ] },
+  { istruzione: "Clicca i 2 termini della lotta tra papato e impero.", opzioni: [ {t:"investitura",ok:true},{t:"Concordato di Worms",ok:true},{t:"guidrigildo",ok:false},{t:"mecenatismo",ok:false},{t:"quarantena",ok:false} ] },
+  { istruzione: "Clicca le 2 innovazioni della rinascita dell'anno Mille.", opzioni: [ {t:"rotazione triennale",ok:true},{t:"mulino",ok:true},{t:"feudo",ok:false},{t:"crociata",ok:false},{t:"abiura",ok:false} ] },
+  { istruzione: "Clicca i 2 termini del governo dei Comuni.", opzioni: [ {t:"consoli",ok:true},{t:"podestà",ok:true},{t:"missi dominici",ok:false},{t:"indulgenza",ok:false},{t:"caravella",ok:false} ] },
+  { istruzione: "Clicca i 2 elementi legati alla Lega Lombarda.", opzioni: [ {t:"Lega Lombarda",ok:true},{t:"pace di Costanza",ok:true},{t:"feudo",ok:false},{t:"mecenatismo",ok:false},{t:"quarantena",ok:false} ] },
+  { istruzione: "Clicca i 2 termini legati a pellegrinaggi e crociate.", opzioni: [ {t:"pellegrinaggio",ok:true},{t:"Terra Santa",ok:true},{t:"podestà",ok:false},{t:"mulino",ok:false},{t:"abiura",ok:false} ] },
+  { istruzione: "Clicca i 2 termini della crisi del Trecento.", opzioni: [ {t:"quarantena",ok:true},{t:"capro espiatorio",ok:true},{t:"feudo",ok:false},{t:"consoli",ok:false},{t:"caravella",ok:false} ] },
+  { istruzione: "Clicca i 2 strumenti delle monarchie nazionali.", opzioni: [ {t:"tasse regolari",ok:true},{t:"esercito permanente",ok:true},{t:"feudo",ok:false},{t:"indulgenza",ok:false},{t:"mecenatismo",ok:false} ] },
+  { istruzione: "Clicca le 2 cose che vengono da civiltà non europee.", opzioni: [ {t:"algebra",ok:true},{t:"bussola",ok:true},{t:"guidrigildo",ok:false},{t:"Concordato di Worms",ok:false},{t:"indulgenza",ok:false} ] },
+  { istruzione: "Clicca i 2 termini legati alle Signorie.", opzioni: [ {t:"Signoria",ok:true},{t:"mecenatismo",ok:true},{t:"Comune",ok:false},{t:"crociata",ok:false},{t:"quarantena",ok:false} ] },
+  { istruzione: "Clicca i 2 termini di Umanesimo e Rinascimento.", opzioni: [ {t:"Umanesimo",ok:true},{t:"prospettiva",ok:true},{t:"feudo",ok:false},{t:"guidrigildo",ok:false},{t:"quarantena",ok:false} ] },
+  { istruzione: "Clicca i 2 termini delle scoperte geografiche.", opzioni: [ {t:"caravella",ok:true},{t:"scambio colombiano",ok:true},{t:"feudo",ok:false},{t:"podestà",ok:false},{t:"indulgenza",ok:false} ] },
+  { istruzione: "Clicca i 2 concetti legati a Carlo V e al suo secolo.", opzioni: [ {t:"equilibrio tra gli Stati",ok:true},{t:"abdicare",ok:true},{t:"Comune",ok:false},{t:"crociata",ok:false},{t:"mulino",ok:false} ] },
+  { istruzione: "Clicca i 2 termini legati a Lutero e alla Riforma.", opzioni: [ {t:"indulgenza",ok:true},{t:"Riforma protestante",ok:true},{t:"feudo",ok:false},{t:"podestà",ok:false},{t:"caravella",ok:false} ] },
+  { istruzione: "Clicca i 2 concetti del Seicento.", opzioni: [ {t:"Pace di Vestfalia",ok:true},{t:"assolutismo",ok:true},{t:"feudo",ok:false},{t:"mulino",ok:false},{t:"crociata",ok:false} ] },
+  { istruzione: "Clicca i 2 elementi della scienza moderna di Galileo.", opzioni: [ {t:"metodo scientifico",ok:true},{t:"cannocchiale",ok:true},{t:"feudo",ok:false},{t:"indulgenza",ok:false},{t:"podestà",ok:false} ] }
+];
+
+/* =========================================================================
+   CONFIG — DA COMPILARE A CURA DELL'INSEGNANTE
+   - SYNC_URL: incolla qui l'URL "/exec" del tuo Google Apps Script (vedi
+     il file "Apps Script - dashboard docente.gs"). Lascialo "" per usare
+     l'app solo offline (i progressi restano sul dispositivo).
+   - CLASS_SECRET: la passphrase con cui i dati vengono CIFRATI prima di
+     essere inviati. È la STESSA che digiterai nella dashboard per leggerli.
+     Scegline una lunga e tienila riservata.
+   - APP_SALT: non modificare (deve coincidere con quello dell'Apps Script).
+   ========================================================================= */
+const CONFIG = {
+  SYNC_URL: "https://script.google.com/macros/s/AKfycbyEyiFja7makEoespCRNaoOTyEBLPf7y1iMOTTvJ7_jhNsxHXAf6OGVZHJpnyDlgUX_yg/exec",
+  CLASS_SECRET: "CTBA-PVyk-AdxA-SAtK-e29E-rCNJ-2XHX",
+  APP_SALT: "ponti-storia-v1"
+};
+
 const STORAGE_KEY = 'ponti-storia-progresso';
+const IDENTITY_KEY = 'ponti-storia-identita';
 function loadProgress() {
   try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : {}; }
   catch (e) { return {}; }
 }
-function saveProgress(p) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch (e) {} }
+function saveProgress(p) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch (e) {}
+  scheduleSync();
+}
 let progress = loadProgress();
 
+let identity = null;
+try { const r = localStorage.getItem(IDENTITY_KEY); if (r) identity = JSON.parse(r); } catch (e) {}
+
+/* conta solo le chiavi numeriche (i ponti), non il flag 'v' della verifica */
 function chapterSolvedCount(i) {
   const p = progress[i]; if (!p) return 0;
-  return Object.values(p).filter(Boolean).length;
+  return Object.keys(p).filter(k => /^\d+$/.test(k) && p[k]).length;
 }
 function isChapterDone(i) { return chapterSolvedCount(i) === CAPITOLI[i].dilemmi.length; }
+function isVerificaDone(i) { return !!(progress[i] && progress[i].v); }
+
+/* ---------- CIFRATURA (AES-GCM, chiave da passphrase via PBKDF2) ---------- */
+const cryptoOK = !!(window.crypto && window.crypto.subtle);
+function b64(arr) { let s = ''; arr.forEach(b => s += String.fromCharCode(b)); return btoa(s); }
+async function deriveKey(pass, salt) {
+  const enc = new TextEncoder();
+  const km = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: enc.encode(salt), iterations: 100000, hash: 'SHA-256' },
+    km, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+async function encryptJSON(obj) {
+  const key = await deriveKey(CONFIG.CLASS_SECRET, CONFIG.APP_SALT);
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const data = new TextEncoder().encode(JSON.stringify(obj));
+  const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, data);
+  return { iv: b64(iv), ct: b64(new Uint8Array(ct)) };
+}
+async function sha256hex(str) {
+  const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(h)].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+/* ---------- SINCRONIZZAZIONE col Google Sheet (via Apps Script) ---------- */
+let syncTimer = null, lastSyncState = '';
+function syncActive() { return !!CONFIG.SYNC_URL && cryptoOK && identity && identity.nickname; }
+function scheduleSync() {
+  if (!syncActive()) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(syncNow, 1200);
+}
+async function syncNow() {
+  if (!syncActive()) return;
+  setSyncState('Invio in corso…');
+  try {
+    const snapshot = {
+      nickname: identity.nickname,
+      classe: identity.classe,
+      progress: progress,
+      capitoliCompletati: CAPITOLI.map((c, i) => isChapterDone(i) ? i + 1 : null).filter(x => x),
+      verificheFatte: CAPITOLI.map((c, i) => isVerificaDone(i) ? i + 1 : null).filter(x => x),
+      competenzeTotali: totalCompetences(),
+      updatedAt: new Date().toISOString()
+    };
+    const id = await sha256hex(CONFIG.APP_SALT + '|' + identity.classe + '|' + identity.nickname);
+    const enc = await encryptJSON(snapshot);
+    const body = JSON.stringify({ id, classe: identity.classe, iv: enc.iv, ct: enc.ct, ts: snapshot.updatedAt });
+    await fetch(CONFIG.SYNC_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body });
+    setSyncState('Progressi salvati ✓ (' + new Date().toLocaleTimeString() + ')');
+  } catch (e) {
+    setSyncState('Salvato sul dispositivo (rete non disponibile)');
+  }
+}
+function setSyncState(msg) { lastSyncState = msg; renderSyncFooter(); }
+function renderSyncFooter() {
+  const f = document.getElementById('syncFooter');
+  if (!f) return;
+  if (!CONFIG.SYNC_URL) { f.innerHTML = '<span class="sync-state">Modalità offline · progressi salvati su questo dispositivo</span>'; return; }
+  if (!identity) { f.innerHTML = ''; return; }
+  f.innerHTML = `<span class="sync-state">👤 ${identity.nickname} · ${identity.classe} — ${lastSyncState || 'pronto'}</span> · <button class="sync-link" id="changeProfile">cambia profilo</button>`;
+  const cp = document.getElementById('changeProfile');
+  if (cp) cp.addEventListener('click', () => openIdentityModal(true));
+}
+
+/* ---------- IDENTITÀ studente ---------- */
+function openIdentityModal(prefill) {
+  const m = document.getElementById('identityModal');
+  if (prefill && identity) {
+    document.getElementById('inpNick').value = identity.nickname || '';
+    document.getElementById('inpClasse').value = identity.classe || '';
+  }
+  document.getElementById('identityErr').textContent = '';
+  m.classList.add('show');
+  setTimeout(() => document.getElementById('inpNick').focus(), 50);
+}
+function setupIdentity() {
+  document.getElementById('saveIdentity').addEventListener('click', () => {
+    const nick = document.getElementById('inpNick').value.trim();
+    const classe = document.getElementById('inpClasse').value.trim();
+    if (nick.length < 2) { document.getElementById('identityErr').textContent = 'Scrivi un nickname (almeno 2 caratteri).'; return; }
+    if (classe.length < 1) { document.getElementById('identityErr').textContent = 'Scrivi la tua classe (es. 1A).'; return; }
+    identity = { nickname: nick, classe: classe };
+    try { localStorage.setItem(IDENTITY_KEY, JSON.stringify(identity)); } catch (e) {}
+    document.getElementById('identityModal').classList.remove('show');
+    renderSyncFooter();
+    scheduleSync();
+  });
+  // chiede il profilo solo se la sincronizzazione è configurata e manca l'identità
+  if (CONFIG.SYNC_URL && cryptoOK && !identity) openIdentityModal(false);
+  renderSyncFooter();
+}
 function totalCompetences() {
   let n = 0; CAPITOLI.forEach((c, i) => { n += chapterSolvedCount(i); }); return n;
 }
@@ -1376,6 +1809,7 @@ function totalChaptersDone() {
 const viewHome = document.getElementById('view-home');
 const viewChapter = document.getElementById('view-chapter');
 const viewQuad = document.getElementById('view-competenze');
+const viewDocenti = document.getElementById('view-docenti');
 const grid = document.getElementById('chapterGrid');
 const progressFill = document.getElementById('progressFill');
 
@@ -1413,6 +1847,121 @@ function renderGrid() {
 
 let currentIndex = 0;
 
+/* Mappe concettuali causa→scelta→conseguenze→eredità (una per capitolo) */
+const MAPPE = [
+  { domanda: "Perché nascono le prime leggi scritte?",
+    cause: ["Caduta dell'Impero romano d'Occidente: l'Italia è frammentata e insicura", "Longobardi e Romani convivono con tradizioni e regole orali diverse"],
+    scelta: "Il re Rotari mette per iscritto le leggi: l'Editto di Rotari (643)",
+    conseguenze: ["Le regole valgono uguali per tutti e non dipendono dal più forte", "La vendetta privata (faida) è sostituita dal risarcimento (guidrigildo)"],
+    eredita: "Lo Stato di diritto: la legge scritta, oggi, vale uguale per tutti" },
+  { domanda: "Come si tiene unito un impero immenso e di popoli diversi?",
+    cause: ["Carlo Magno conquista gran parte dell'Europa (incoronato nell'800)", "Territori vastissimi, popoli e lingue differenti, cultura in declino"],
+    scelta: "Governare con cultura e organizzazione: scuole, capitolari, missi dominici",
+    conseguenze: ["Leggi scritte e funzionari controllati tengono insieme l'impero", "Nei monasteri si copiano e si salvano i testi antichi (rinascita carolingia)"],
+    eredita: "L'idea di un'Europa unita dalla cultura e di un sapere da trasmettere" },
+  { domanda: "Chi protegge le persone quando manca uno Stato forte?",
+    cause: ["Dopo Carlo Magno l'impero si frammenta: nessun potere centrale forte", "Nuove invasioni e insicurezza diffusa: serve protezione locale"],
+    scelta: "Patti personali di fedeltà: terra e protezione in cambio di servizio (feudo)",
+    conseguenze: ["La società si fissa in tre ordini stabiliti dalla nascita", "Nasce il codice cavalleresco: la forza al servizio dei più deboli"],
+    eredita: "Il valore della parola data; e la conquista che la posizione non è più fissata dalla nascita" },
+  { domanda: "Chi comanda davvero: il papa o l'imperatore?",
+    cause: ["Papato e impero rivendicano entrambi la suprema autorità", "Lotta per le investiture: chi nomina vescovi e abati?"],
+    scelta: "Dallo scontro all'accordo: Canossa (1077) e poi il Concordato di Worms (1122)",
+    conseguenze: ["A ciascun potere il suo ambito: spirituale e temporale", "Il conflitto si placa definendo con regole precise i ruoli"],
+    eredita: "La distinzione tra potere religioso e potere civile" },
+  { domanda: "Perché, dopo il Mille, l'Europa torna a crescere?",
+    cause: ["Fine delle grandi invasioni, clima più mite, maggiore sicurezza", "Una popolazione in aumento ha bisogno di più cibo"],
+    scelta: "Innovare il lavoro: rotazione triennale dei campi, aratro pesante, mulini",
+    conseguenze: ["Raccolti più abbondanti e popolazione in crescita", "Rinascono città, mercati e fiere: scambio di merci e di idee"],
+    eredita: "L'innovazione tecnica e lo scambio come motori della crescita comune" },
+  { domanda: "Da dove viene il potere di governare una città?",
+    cause: ["Le città crescono e i cittadini vogliono autogovernarsi", "Lotte continue tra fazioni e famiglie potenti"],
+    scelta: "I cittadini si danno governi eletti (il Comune) e un arbitro neutrale (il podestà)",
+    conseguenze: ["Il potere nasce dal voto dei cittadini, non dalla nascita o dalla forza", "Anche il popolo minuto rivendica e ottiene voce"],
+    eredita: "La democrazia rappresentativa e il voto come strumento di tutti" },
+  { domanda: "Come possono i più deboli resistere a un potere più forte?",
+    cause: ["L'imperatore Federico Barbarossa vuole sottomettere i Comuni", "Ogni città, da sola, è più debole dell'impero"],
+    scelta: "Le città, fino a ieri rivali, si alleano nella Lega Lombarda",
+    conseguenze: ["A Legnano (1176) l'unione coordinata batte il più forte", "La pace di Costanza (1183) trasforma la vittoria in diritti riconosciuti"],
+    eredita: "L'unione coordinata e l'accordo giusto come alternativa alla pura forza" },
+  { domanda: "Cosa si nasconde dietro una guerra detta «santa»?",
+    cause: ["Il richiamo religioso a liberare la Terrasanta", "Interessi concreti: terre, ricchezze, nuove rotte commerciali"],
+    scelta: "L'Europa lancia le crociate verso l'Oriente",
+    conseguenze: ["Violenza e scontro fra mondi diversi", "Ma anche contatto: dall'Oriente arrivano numeri, carta, merci e saperi"],
+    eredita: "Il metodo dello storico: cercare le ragioni reali e più fonti; l'incontro che supera il pregiudizio" },
+  { domanda: "Cosa accade a una società travolta dalla paura?",
+    cause: ["Carestie e sovrappopolazione indeboliscono l'Europa", "La peste nera (1347-1351) uccide circa un terzo della popolazione"],
+    scelta: "Due risposte opposte: cercare un capro espiatorio, oppure misure ragionate (quarantena)",
+    conseguenze: ["Minoranze perseguitate, accusate senza prove", "Le città che adottano la quarantena frenano il contagio"],
+    eredita: "Nelle emergenze: prove e ragione contro la paura e il capro espiatorio" },
+  { domanda: "Come nasce uno Stato forte e unito?",
+    cause: ["Frammentazione feudale: troppi poteri locali in concorrenza", "I re ambiscono ad avere autorità su tutto il territorio"],
+    scelta: "Dotarsi di strumenti propri: tasse regolari, esercito permanente, leggi comuni",
+    conseguenze: ["Meno arbìtri locali: regole uguali su tutto il regno", "Il re diventa autonomo dai grandi feudatari"],
+    eredita: "Lo Stato moderno: i beni comuni sostenuti dal contributo di tutti" },
+  { domanda: "L'Europa era davvero il centro del mondo?",
+    cause: ["Mentre l'Europa vive il Medioevo, altrove fioriscono grandi civiltà", "Lungo la Via della Seta viaggiano merci e, soprattutto, idee"],
+    scelta: "Le civiltà che accolgono saperi stranieri innovano (mondo arabo, cinese, africano)",
+    conseguenze: ["Zero, algebra, carta, bussola, polvere da sparo si diffondono", "Chi si chiude alle idee altrui resta indietro"],
+    eredita: "Il sapere come eredità comune di tutte le civiltà; la curiosità verso il diverso" },
+  { domanda: "Perché dei cittadini liberi rinunciano al proprio potere?",
+    cause: ["I Comuni sono logorati dalle lotte tra fazioni", "Si cerca ordine e stabilità a ogni costo"],
+    scelta: "Affidare tutto il potere a un solo signore (la Signoria)",
+    conseguenze: ["Ordine e splendore artistico (mecenatismo)…", "…ma i cittadini perdono la voce; tra gli Stati, l'equilibrio della pace di Lodi (1454)"],
+    eredita: "Il prezzo nascosto del «lascia fare a lui»; l'equilibrio che evita il dominio di uno solo" },
+  { domanda: "Qual è il posto dell'uomo nel mondo?",
+    cause: ["Riscoperta dei classici greci e latini", "Una fiducia nuova nelle capacità dell'essere umano"],
+    scelta: "Mettere l'uomo, la sua dignità e i suoi talenti al centro (Umanesimo)",
+    conseguenze: ["Si valorizzano i molti talenti (l'«uomo universale», Leonardo)", "Con la stampa di Gutenberg il sapere si diffonde a molti"],
+    eredita: "La dignità e i talenti unici di ogni persona; il sapere accessibile a tutti" },
+  { domanda: "Una scoperta può essere insieme benedizione e tragedia?",
+    cause: ["Ricerca di nuove rotte verso le ricchezze d'Oriente", "Nuove tecniche di navigazione (caravella, bussola, portolani)"],
+    scelta: "L'Europa attraversa gli oceani: nel 1492 Colombo raggiunge l'America",
+    conseguenze: ["Scambio colombiano: nuovi cibi e ricchezze verso l'Europa", "Conquista, malattie e crollo demografico per i popoli americani"],
+    eredita: "Guardare gli eventi con luci e ombre; la forza che non deve diventare abuso" },
+  { domanda: "Cosa accade quando un solo potere diventa troppo grande?",
+    cause: ["Carlo V eredita un impero «su cui non tramonta mai il sole»", "Gli altri Stati temono di esserne schiacciati"],
+    scelta: "Politica dell'equilibrio: gli Stati si alleano contro il più forte",
+    conseguenze: ["Nessuno riesce a dominare l'intera Europa", "Persino Carlo V ammette i propri limiti e divide l'impero (abdicazione)"],
+    eredita: "L'equilibrio dei poteri a difesa della libertà di tutti; il riconoscere i propri limiti" },
+  { domanda: "Come può un'idea cambiare un intero continente?",
+    cause: ["Critiche agli abusi della Chiesa (vendita delle indulgenze)", "La stampa permette di diffondere le idee con grande velocità"],
+    scelta: "Lutero affigge le 95 tesi argomentate (1517) e le diffonde con la stampa",
+    conseguenze: ["L'Europa cristiana si divide (Riforma e Controriforma)", "Le idee diventano «virali»: con esse corrono anche le calunnie"],
+    eredita: "Il potere e la responsabilità di diffondere messaggi; verificare prima di condividere; il dissenso motivato" },
+  { domanda: "Si può convivere pur pensandola diversamente?",
+    cause: ["Le divisioni religiose degenerano in guerra", "Nessuna delle parti vuole cedere per prima"],
+    scelta: "Dopo trent'anni di guerra (1618-1648) si sceglie la pace: la Pace di Vestfalia",
+    conseguenze: ["Si accetta che Stati e fedi diverse convivano", "In Francia, Luigi XIV concentra in sé tutto il potere (assolutismo)"],
+    eredita: "Convivere nella differenza; la pace giusta contro il conflitto infinito; l'argine al «capo assoluto»" },
+  { domanda: "Come distinguiamo ciò che è vero da ciò che è soltanto creduto?",
+    cause: ["Per secoli la verità si fonda sull'autorità (Aristotele, la tradizione)", "Nuovi strumenti permettono di osservare meglio (il telescopio)"],
+    scelta: "Galileo adotta il metodo sperimentale: ipotesi, osservazione, prova",
+    conseguenze: ["Si cambia idea davanti alle prove (la Terra non è al centro)", "L'autorità da sola non basta più: contano le prove (Galileo è processato)"],
+    eredita: "Il pensiero critico: chiedere «quali prove?»; difendersi dalle informazioni false" }
+];
+
+function renderMappa(i) {
+  const box = document.getElementById('chMappa');
+  const m = MAPPE[i];
+  if (!box) return;
+  if (!m) { box.innerHTML = ''; return; }
+  const esc = s => String(s);
+  const cause = m.cause.map(c => `<div class="mc-node mc-causa">${esc(c)}</div>`).join('');
+  const cons = m.conseguenze.map(c => `<div class="mc-node mc-cons">${esc(c)}</div>`).join('');
+  box.innerHTML = `
+    <div class="mappa">
+      <div class="mc-domanda">${esc(m.domanda)}</div>
+      <div class="mc-row">${cause}</div>
+      <div class="mc-link">↓<span>la situazione porta a una scelta</span></div>
+      <div class="mc-node mc-scelta"><span class="mc-tag">La scelta storica</span>${esc(m.scelta)}</div>
+      <div class="mc-link">↓<span>che produce conseguenze</span></div>
+      <div class="mc-row">${cons}</div>
+      <div class="mc-link">↓<span>e nel tempo lascia un'eredità</span></div>
+      <div class="mc-node mc-eredita"><span class="mc-tag">Fino a oggi</span>${esc(m.eredita)}</div>
+    </div>`;
+}
+
 function openChapter(i) {
   currentIndex = i;
   const cap = CAPITOLI[i];
@@ -1433,9 +1982,13 @@ function openChapter(i) {
   document.getElementById('chDates').innerHTML = cap.date.map(d =>
     `<div class="date-item"><span class="yr">${d.a}</span><span>${d.e}</span></div>`).join('');
 
+  renderMappa(i);
+
   const box = document.getElementById('chDilemmas');
   box.innerHTML = '';
   cap.dilemmi.forEach((dil, k) => box.appendChild(buildDilemma(cap, i, dil, k)));
+
+  renderVerifica(cap, i);
 
   document.getElementById('prevBtn').disabled = (i === 0);
   document.getElementById('nextBtn').disabled = (i === CAPITOLI.length - 1);
@@ -1462,6 +2015,18 @@ function buildDilemma(cap, chIdx, dil, k) {
     <div class="options">${opts}</div>
     <div class="feedback"></div>
     <div class="ponte-reveal">
+      <div class="confronto">
+        <div class="cf-box cf-tu"><div class="cf-label">👤 Cosa faresti tu, oggi</div><div class="cf-text tua-scelta">—</div></div>
+        <div class="cf-vs">⟷</div>
+        <div class="cf-box cf-storia"><div class="cf-label">🏛️ Cosa accadde, allora</div><div class="cf-text">${dil.sceltaStoria}</div></div>
+      </div>
+      <div class="cf-nota"><b>Non c'è una risposta da indovinare.</b> La Storia non è un modello da imitare né da condannare: a volte ha preso strade che oggi consideriamo ingiuste, e ciò che un tempo sembrava normale — come molte guerre — oggi non lo è più. Le due scelte qui sopra servono solo a farti <b>osservare le differenze e farti delle domande</b>. È in classe, insieme all'insegnante, che questo confronto diventa davvero ragionamento storico.</div>
+      <div class="rifl">
+        <label class="rifl-label" for="rifl-${chIdx}-${k}">✍️ La tua riflessione <span class="rifl-hint">(facoltativa · non è un voto)</span></label>
+        <p class="rifl-q">Ciò che accadde allora, oggi sarebbe <b>possibile</b>, <b>accettabile</b> o <b>opportuno</b>? Cosa è cambiato? Scrivi qui la tua opinione: ne parlerai in classe.</p>
+        <textarea id="rifl-${chIdx}-${k}" class="rifl-ta" rows="3" placeholder="La mia opinione…"></textarea>
+        <div class="rifl-status"></div>
+      </div>
       <div class="ponte-box"><div class="lead">🌉 Il ponte</div><div>${dil.ponte}</div></div>
       <div class="comp-award">
         <div class="ctext">🎓 Competenza: <b>${dil.competenza}</b></div>
@@ -1471,8 +2036,29 @@ function buildDilemma(cap, chIdx, dil, k) {
 
   const feedback = card.querySelector('.feedback');
   const reveal = card.querySelector('.ponte-reveal');
+  const tuaScelta = card.querySelector('.tua-scelta');
   const compBtn = card.querySelector('.comp-btn');
   const optBtns = Array.from(card.querySelectorAll('.option-btn'));
+
+  // Riflessione personale dello studente (facoltativa, salvata e sincronizzata)
+  const riflTa = card.querySelector('.rifl-ta');
+  const riflStatus = card.querySelector('.rifl-status');
+  const savedNote = progress[chIdx] && progress[chIdx].note ? progress[chIdx].note[k] : '';
+  if (savedNote) riflTa.value = savedNote;
+  let riflTimer = null;
+  riflTa.addEventListener('input', () => {
+    clearTimeout(riflTimer);
+    riflStatus.textContent = 'Scrittura…';
+    riflTimer = setTimeout(() => {
+      if (!progress[chIdx]) progress[chIdx] = {};
+      if (!progress[chIdx].note) progress[chIdx].note = {};
+      const val = riflTa.value.trim();
+      if (val) progress[chIdx].note[k] = val;
+      else { delete progress[chIdx].note[k]; if (Object.keys(progress[chIdx].note).length === 0) delete progress[chIdx].note; }
+      saveProgress(progress);
+      riflStatus.textContent = val ? 'Riflessione salvata ✓' : '';
+    }, 700);
+  });
 
   function showPonteAndComp(earned) {
     reveal.classList.add('show');
@@ -1486,14 +2072,15 @@ function buildDilemma(cap, chIdx, dil, k) {
       optBtns.forEach(c => { c.disabled = true; c.classList.remove('chosen'); });
       ob.classList.add('chosen');
       feedback.className = 'feedback show';
-      const lead = op.best ? 'Ottima scelta!' : 'Ragioniamo insieme…';
-      feedback.innerHTML = `<div class="lead">${lead}</div><div>${op.fb}</div>`;
+      feedback.innerHTML = `<div class="lead">🔎 Dove porta questa scelta</div><div>${op.fb}</div>`;
+      tuaScelta.textContent = op.testo;
       showPonteAndComp(progress[chIdx] && progress[chIdx][k]);
     });
   });
 
   if (already) {
     optBtns.forEach(c => c.disabled = true);
+    tuaScelta.innerHTML = '<em>Hai già attraversato questo ponte.</em>';
     showPonteAndComp(true);
   }
 
@@ -1510,6 +2097,142 @@ function buildDilemma(cap, chIdx, dil, k) {
   return card;
 }
 
+/* ===================== MOTORE DELLE VERIFICHE ===================== */
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+function renderVerifica(cap, i) {
+  const wrap = document.getElementById('chVerifica');
+  wrap.innerHTML = '';
+  const passed = [false, false, false];
+
+  function onPass(idx) {
+    passed[idx] = true;
+    if (passed.every(Boolean) && !(progress[i] && progress[i].v)) {
+      if (!progress[i]) progress[i] = {};
+      progress[i].v = true;
+      saveProgress(progress);
+      updateHeader();
+      renderVerificaStatus();
+    }
+  }
+  function renderVerificaStatus() {
+    let s = wrap.querySelector('.verifica-status');
+    if (isVerificaDone(i)) {
+      if (!s) { s = document.createElement('div'); s.className = 'verifica-status chapter-done-banner show'; s.style.margin = '4px 0 12px'; wrap.insertBefore(s, wrap.firstChild); }
+      s.textContent = '✅ Verifica completata! Bravo/a.';
+    }
+  }
+
+  wrap.appendChild(buildReorder(cap, () => onPass(0)));
+  wrap.appendChild(buildMatch(cap, () => onPass(1)));
+  wrap.appendChild(buildHotText(i, () => onPass(2)));
+  renderVerificaStatus();
+}
+
+function buildReorder(cap, onPass) {
+  const card = document.createElement('div'); card.className = 'quiz-card';
+  const correct = cap.date;
+  let order = shuffle(correct.map((d, idx) => idx));
+  if (order.length > 1 && order.every((v, k) => v === k)) order.push(order.shift());
+  card.innerHTML = `<div class="quiz-type">Riordina la linea del tempo</div>
+    <div class="quiz-q">Sistema gli eventi in ordine cronologico, dal più antico al più recente.</div>
+    <div class="reorder-list"></div>
+    <button class="quiz-check">Controlla</button>
+    <div class="quiz-result"></div>`;
+  const list = card.querySelector('.reorder-list');
+  function draw() {
+    list.innerHTML = '';
+    order.forEach((origIdx, pos) => {
+      const it = document.createElement('div'); it.className = 'reorder-item';
+      it.innerHTML = `<div class="reorder-arrows"><button data-d="-1" ${pos === 0 ? 'disabled' : ''} aria-label="Sposta su">▲</button><button data-d="1" ${pos === order.length - 1 ? 'disabled' : ''} aria-label="Sposta giù">▼</button></div>
+        <span class="ev">${correct[origIdx].e} <span class="yr-hide">(${correct[origIdx].a})</span></span>`;
+      it.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+        if (card.classList.contains('ok')) return;
+        const d = +b.dataset.d, np = pos + d;
+        if (np < 0 || np >= order.length) return;
+        [order[pos], order[np]] = [order[np], order[pos]]; draw();
+      }));
+      list.appendChild(it);
+    });
+  }
+  draw();
+  card.querySelector('.quiz-check').addEventListener('click', () => {
+    const res = card.querySelector('.quiz-result');
+    const items = Array.from(list.children);
+    let allok = true;
+    order.forEach((origIdx, pos) => { const ok = origIdx === pos; items[pos].classList.toggle('correct', ok); items[pos].classList.toggle('wrong', !ok); if (!ok) allok = false; });
+    res.className = 'quiz-result show ' + (allok ? 'good' : 'bad');
+    res.textContent = allok ? 'Perfetto, ordine corretto! 🎉' : 'Non ancora: sistema gli eventi in rosso e riprova.';
+    if (allok) { card.classList.add('ok'); onPass(); }
+  });
+  return card;
+}
+
+function buildMatch(cap, onPass) {
+  const card = document.createElement('div'); card.className = 'quiz-card';
+  const terms = cap.termini;
+  const defOrder = shuffle(terms.map((t, idx) => idx));
+  card.innerHTML = `<div class="quiz-type">Abbina termine e definizione</div>
+    <div class="quiz-q">Per ogni termine scegli la definizione giusta.</div>
+    <div class="match-rows"></div>
+    <button class="quiz-check">Controlla</button>
+    <div class="quiz-result"></div>`;
+  const rows = card.querySelector('.match-rows');
+  terms.forEach((t, idx) => {
+    const row = document.createElement('div'); row.className = 'match-row';
+    let opts = '<option value="">— scegli —</option>';
+    defOrder.forEach(di => opts += `<option value="${di}">${terms[di].v}</option>`);
+    row.innerHTML = `<div class="match-term">${t.k}</div><select data-correct="${idx}">${opts}</select>`;
+    rows.appendChild(row);
+  });
+  card.querySelector('.quiz-check').addEventListener('click', () => {
+    const res = card.querySelector('.quiz-result');
+    let allok = true;
+    rows.querySelectorAll('.match-row').forEach(row => {
+      const sel = row.querySelector('select');
+      const ok = sel.value !== '' && +sel.value === +sel.dataset.correct;
+      row.classList.toggle('correct', ok); row.classList.toggle('wrong', !ok);
+      if (!ok) allok = false;
+    });
+    res.className = 'quiz-result show ' + (allok ? 'good' : 'bad');
+    res.textContent = allok ? 'Tutti gli abbinamenti corretti! 🎉' : 'Qualche abbinamento è sbagliato (in rosso): correggi e riprova.';
+    if (allok) { card.classList.add('ok'); onPass(); }
+  });
+  return card;
+}
+
+function buildHotText(i, onPass) {
+  const data = HOTTEXT[i];
+  const card = document.createElement('div'); card.className = 'quiz-card';
+  card.innerHTML = `<div class="quiz-type">Testo interattivo</div>
+    <div class="quiz-q">${data.istruzione}</div>
+    <div class="hot-chips"></div>
+    <button class="quiz-check">Controlla</button>
+    <div class="quiz-result"></div>`;
+  const box = card.querySelector('.hot-chips');
+  shuffle(data.opzioni.map((o, idx) => idx)).forEach(idx => {
+    const o = data.opzioni[idx];
+    const b = document.createElement('button'); b.className = 'hot-chip'; b.textContent = o.t; b.dataset.idx = idx;
+    b.addEventListener('click', () => { if (card.classList.contains('ok')) return; b.classList.toggle('sel'); });
+    box.appendChild(b);
+  });
+  card.querySelector('.quiz-check').addEventListener('click', () => {
+    const res = card.querySelector('.quiz-result');
+    let allok = true;
+    box.querySelectorAll('.hot-chip').forEach(b => {
+      const o = data.opzioni[+b.dataset.idx], sel = b.classList.contains('sel');
+      b.classList.remove('correct', 'missed', 'wrong');
+      if (o.ok && sel) b.classList.add('correct');
+      else if (o.ok && !sel) { b.classList.add('missed'); allok = false; }
+      else if (!o.ok && sel) { b.classList.add('wrong'); allok = false; }
+    });
+    res.className = 'quiz-result show ' + (allok ? 'good' : 'bad');
+    res.textContent = allok ? 'Esatto, parole giuste! 🎉' : 'Non ancora: il tratteggiato indica le mancanti, il barrato quelle di troppo.';
+    if (allok) { card.classList.add('ok'); onPass(); }
+  });
+  return card;
+}
+
 function refreshDoneBanner() {
   const b = document.getElementById('chDoneBanner');
   if (isChapterDone(currentIndex)) b.classList.add('show'); else b.classList.remove('show');
@@ -1518,8 +2241,17 @@ function refreshDoneBanner() {
 function goHome() {
   viewChapter.style.display = 'none';
   viewQuad.style.display = 'none';
+  viewDocenti.style.display = 'none';
   viewHome.style.display = 'block';
   renderGrid();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openDocenti() {
+  viewHome.style.display = 'none';
+  viewChapter.style.display = 'none';
+  viewQuad.style.display = 'none';
+  viewDocenti.style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1552,6 +2284,9 @@ function openQuaderno() {
 
 document.getElementById('backBtn').addEventListener('click', goHome);
 document.getElementById('backBtn2').addEventListener('click', goHome);
+document.getElementById('backBtn3').addEventListener('click', goHome);
+document.getElementById('backBtn4').addEventListener('click', goHome);
+document.getElementById('openDocenti').addEventListener('click', openDocenti);
 document.getElementById('homeLink').addEventListener('click', goHome);
 document.getElementById('openQuad').addEventListener('click', openQuaderno);
 document.getElementById('printQuad').addEventListener('click', () => window.print());
@@ -1559,6 +2294,7 @@ document.getElementById('prevBtn').addEventListener('click', () => openChapter(c
 document.getElementById('nextBtn').addEventListener('click', () => openChapter(currentIndex + 1));
 
 renderGrid();
+setupIdentity();
 </script>
 </body>
 </html>
